@@ -33,28 +33,31 @@ page{
   height: 14px  
 }  
 .loginLab {  
-  margin: 15px 15px 15px 10px;  
+  display: inline-block;
+  margin: 15rpx 15rpx 15rpx 25rpx;  
   color: #545454;  
-  font-size: 14px  
+  font-size: 34rpx  
 }  
 .inputText {  
-  flex: block;  
-  float: right;  
-  text-align: right;  
-  margin-right: 22px;  
-  margin-top: 11px;  
+  display: inline-block; 
+  background-color: gold;
+  text-align: left;
   color: #cccccc;  
-  font-size: 14px  
+  height: 24px;
+  width: 145px;
+  margin-left: 30rpx;
+  font-size: 34rpx  
 }  
-.inputText-verycode {  
-  flex: block;  
-  float: right;  
-  text-align: left;  
-  margin-right: 22px;  
-  margin-top: 11px;  
+
+.inputButton {  
+  display: block;
+  float: right;
+  text-align: left;
   color: #cccccc;  
-  font-size: 14px  
+  height: 24px;
+  font-size: 30rpx  
 } 
+
 .line {  
   width: 100%;  
   height: 1px;  
