@@ -74,11 +74,10 @@ function postRequest(url, data, header) {
 
 function getToken() {
   // 并设置到头部 Authorization: SRP {token}
-
-  var ClientKey = sjcl.codec.hex.toBits(wx.getStorageSync('clientKey'))
-  if (ClientKey === "") {
+  if (wx.getStorageSync('clientKey')===""){
     return undefined
   }
+  var ClientKey = sjcl.codec.hex.toBits(wx.getStorageSync('clientKey'))
   // console.log("password = " + wx.getStorageSync('password'));
   // console.log("ClientKey = " + sjcl.codec.hex.fromBits(ClientKey));
   var seq = 1;
@@ -184,8 +183,9 @@ function getRequestWithRefreshToken(url,page){
   var username = wx.getStorageSync('username')
   if (token == undefined) {//此时用户应该并没有登录过
     wx.redirectTo({
-      url: 'pages/login/login',
+      url: '../../pages/login/login',
     })
+    return Promise.reject(new Error("user not login"))
   }
   return getRequest(url, {
     'Content-Type': 'application/json',
@@ -209,7 +209,7 @@ function getRequestWithRefreshToken(url,page){
         console.log(res)
         //跳转到登录页面重新登录
         wx.redirectTo({
-          url: 'pages/login/login',
+          url: '../../pages/login/login',
         })
       })
     }
