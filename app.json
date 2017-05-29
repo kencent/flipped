@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/square/square",
     "pages/mine/mine",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "dark",

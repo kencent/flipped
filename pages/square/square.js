@@ -1,9 +1,20 @@
+var util = require('../../utils/util')
+var squreUrl =  require('../../config').squreUrl
 Page({
   data:{
     text:"Page square"
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
+      res => {
+        wx.showModal({
+          title: '请求成功',
+          content: res.data,
+          showCancel: false
+        })
+      }
+    )
   },
   onReady:function(){
     // 页面渲染完成

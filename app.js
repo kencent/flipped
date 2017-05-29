@@ -1,3 +1,6 @@
+const srpUrl = require('./config').srpUrl
+const srpB = require('./config').srpB
+const srpM2 = require('./config').srpM2
 App({
     onLaunch: function () {
     	console.log('初始化完成');

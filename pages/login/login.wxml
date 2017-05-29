@@ -15,7 +15,7 @@
       <view class="weui-label">验证码</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input"  confirm-type="done"  type="text" placeholder="请输入验证码" bindinput="veryCodeInput" />
+      <input class="weui-input"  confirm-type="done" value="{{password}}"  type="text" placeholder="请输入验证码" bindinput="veryCodeInput" />
     </view>
     <view class="weui-cell__ft">
       <button class="weui-vcode-btn" type="primary"  disabled="{{disable}}" bindtap="getVeryCode">{{veryCodeInfo}}</button>
