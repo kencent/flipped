@@ -1,5 +1,6 @@
 var Promise = require('es6-promise.min.js')
 var sjcl = require('sjcl.js')
+var app = getApp()
 const srpB = require('../config').srpB
 const srpM2 = require('../config').srpM2
 function formatTime(date) {
@@ -80,9 +81,13 @@ function getToken() {
   var ClientKey = sjcl.codec.hex.toBits(wx.getStorageSync('clientKey'))
   // console.log("password = " + wx.getStorageSync('password'));
   // console.log("ClientKey = " + sjcl.codec.hex.fromBits(ClientKey));
-  var seq = 1;
+  var seq = app.globalSeq;
+  ///每次拿到toaken之后，seq++
+  app.globalSeq++
+  console.log("seq is "+seq)
   //var token = {I: username, t: new Date().getTime(), q: seq, clt: {p: "wxapp", v: 10000}, r: sjcl.random.randomWords(1)[0]};
-  var token = { I: wx.getStorageSync('username'), q: seq, clt: { p: "wxapp", v: 10000 } };
+  var token = { I: wx.getStorageSync('username'), t: new Date().getTime(), q: seq, clt: { p: "wxapp", v: 10000 }, r: sjcl.random.randomWords(1,0)[0]};
+  
   token = sjcl.codec.utf8String.toBits(JSON.stringify(token));
   // iv是前后台写死的一个固定的值 
   var iv = sjcl.codec.hex.toBits("bfd3814678afe0036efa67ca8da44e2e");

@@ -11,5 +11,6 @@ App({
     onHide: function () {
         console.log('我被隐藏了');
     },
-    globalData: 'I am global data'
+    globalData: 'I am global data',
+    globalSeq:1
   });
