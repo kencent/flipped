@@ -75,7 +75,9 @@ Page({
           })
         }
       }
-      ).finally(function (res) {
+      ).catch(function(res){
+        console.log(res)
+      }).finally(function (res) {
         console.log(res)
       })
   },

@@ -209,7 +209,7 @@ function getRequestWithRefreshToken(url,page){
         console.log(res)
         //跳转到登录页面重新登录
         wx.redirectTo({
-          url: '../../pages/login/login',
+          url: '../../  pages/login/login',
         })
       })
     }
