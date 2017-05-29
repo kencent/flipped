@@ -81,9 +81,9 @@ function getToken() {
   var ClientKey = sjcl.codec.hex.toBits(wx.getStorageSync('clientKey'))
   // console.log("password = " + wx.getStorageSync('password'));
   // console.log("ClientKey = " + sjcl.codec.hex.fromBits(ClientKey));
-  var seq = app.globalSeq;
+  var seq = wx.getStorageSync("seq") === "" ? 1 : wx.getStorageSync("seq")
   ///每次拿到toaken之后，seq++
-  app.globalSeq++
+  wx.setStorageSync('seq', seq + 1)
   console.log("seq is "+seq)
   //var token = {I: username, t: new Date().getTime(), q: seq, clt: {p: "wxapp", v: 10000}, r: sjcl.random.randomWords(1)[0]};
   var token = { I: wx.getStorageSync('username'), t: new Date().getTime(), q: seq, clt: { p: "wxapp", v: 10000 }, r: sjcl.random.randomWords(1,0)[0]};
@@ -214,7 +214,7 @@ function getRequestWithRefreshToken(url,page){
         console.log(res)
         //跳转到登录页面重新登录
         wx.redirectTo({
-          url: '../../  pages/login/login',
+          url: '../../pages/login/login',
         })
       })
     }
