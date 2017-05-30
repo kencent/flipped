@@ -10,7 +10,8 @@ Page({
     veryCodeInfo: '获取验证码',
     disable: false,
     salt: '',
-    N_num_bits: ''
+    N_num_bits: '',
+    logindisable:false
   },
   // 获取输入账号  
   mobileInput: function (e) {
@@ -25,6 +26,12 @@ Page({
     })
   },
   getVeryCode: function (e) {
+    if (this.data.disable){
+      return
+    }
+    this.setData({
+      disable:true
+    })
     if (this.data.phone.length == 0) {
       wx.showToast({
         title: '请输入手机号',
@@ -35,6 +42,10 @@ Page({
     }
     let that = this;
     let recordTime = 0
+    wx.showToast({
+      title: '',
+      icon:'loading'
+    })
     util.getRequest(srpUrl, {
       'Content-Type': 'application/json',
       "x-uid": that.data.phone
@@ -50,7 +61,7 @@ Page({
           let timer = setInterval(function () {
             that.setData({
               disable: true,
-              veryCodeInfo: (res.data.countdown - recordTime) + "s后重新获取"
+              veryCodeInfo: "重新获取("+(res.data.countdown - recordTime)+")"
             })
             recordTime++
           }, 1000)
@@ -73,16 +84,26 @@ Page({
             showCancel: false,
             confirmText: "确定"
           })
+          that.setData({
+            disable:false
+          })
         }
       }
       ).catch(function(res){
         console.log(res)
+        that.setData({
+          disable: false
+        })
       }).finally(function (res) {
+        wx.hideToast()
         console.log(res)
       })
   },
   // 登录  
   login: function () {
+    if (this.data.logindisable){
+      return
+    }
     var that = this
     if (this.data.phone.length == 0 || this.data.password.length == 0) {
       wx.showToast({
@@ -97,6 +118,9 @@ Page({
         duration: 1500
       })
     } else {
+      that.setData({
+        logindisable:true
+      })
       var salt = sjcl.codec.hex.toBits(this.data.salt);
       // 第二步, 生成客户端随机值，使用客户端随机值换取服务器端随机值
       // client -> server: A
@@ -185,7 +209,9 @@ Page({
         }).finally(
         res => {
           console.log("登录完成")
-          wx.hideToast()
+          that.setData({
+            logindisable: false
+          })
         }
         )
     }

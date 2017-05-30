@@ -18,11 +18,11 @@
       <input class="weui-input"  confirm-type="done" value="{{password}}"  type="digit" placeholder="请输入验证码" bindinput="veryCodeInput" />
     </view>
     <view class="weui-cell__ft">
-      <button class="weui-vcode-btn" type="primary"  disabled="{{disable}}" bindtap="getVeryCode">{{veryCodeInfo}}</button>
+      <view class="weui-vcode-btn{{disable==true ? '-disable':''}}" disabled="{{disable}}" bindtap="getVeryCode">{{veryCodeInfo}}</view>
     </view>
   </view>
 </view>
 
 <view class="weui-btn-area">
-  <button class="weui-btn" type="primary" bindtap="login">登录</button>
+  <button class="weui-btn" type="primary" disabled="{{logindisable}}" bindtap="login">登录</button>
 </view>

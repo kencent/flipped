@@ -3,18 +3,28 @@
   height: 300px;
 }
 
-.weui-vcode-btn {
+.weui-vcode-btn{
   display: inline-block;
   height: 2.58823529em;
-  margin-left: 1px;
+  margin-left: 5px;
   padding: 0 0.6em 0 0.7em;
-  border: 1px solid #E5E5E5;
+  border-left: 1px solid #E5E5E5;
   line-height: 2.58823529em;
   vertical-align: middle;
-  font-size: 12px;
+  font-size: 15px;
   color: #3CC51F;
   white-space: nowrap;
 }
-.weui-vcode-btn:active {
-  color: #52a341;
+
+.weui-vcode-btn-disable {
+  display: inline-block;
+  height: 2.58823529em;
+  margin-left: 5px;
+  padding: 0 0.6em 0 0.7em;
+  border-left: 1px solid #E5E5E5;
+  line-height: 2.58823529em;
+  vertical-align: middle;
+  font-size: 15px;
+  color: #E5E7EC;
+  white-space: nowrap;
 }
