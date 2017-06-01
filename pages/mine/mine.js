@@ -68,13 +68,7 @@ Page({
     // 高亮的标签索引
     highLightIndex: "0",
 
-    // 模态对话框样式 
-    modalShowStyle: "",
 
-    // 待新建的日记标题
-    diaryTitle: "",
-
-    // TODO 用户信息
     userInfo: {},
   },
 
@@ -90,16 +84,6 @@ Page({
       }
     })
   },
-  // 隐藏模态框
-  hideModal() {
-    this.setData({ modalShowStyle: "" });
-  },
-
-  // 清除日记标题
-  clearTitle() {
-    this.setData({ diaryTitle: "" });
-  },
-
   onShow: function () {
     this.hideModal();
     this.clearTitle();
@@ -116,20 +100,20 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     util.getRequestWithRefreshToken(users + "/1323131", "pages/mine/mine").then(
       res => {
-        if (res.statusCode == 200){
+        if (res.statusCode == 200) {
           wx.showModal({
             title: '请求成功',
             content: res.data,
             showCancel: false
           })
-        }else{
+        } else {
 
         }
       }
     )
     this.getLocation()
   },
- 
+
   // 点击tab项事件
   touchTab: function (event) {
     var tabIndex = parseInt(event.currentTarget.id);
@@ -142,32 +126,10 @@ Page({
     );
   },
 
-  // 点击新建日记按钮
-  touchAdd: function (event) {
-    this.setData({
-      modalShowStyle: "opacity:1;pointer-events:auto;"
-    })
-  },
-
   // 新建日记
-  touchAddNew: function (event) {
-    this.hideModal();
-
+  touchAdd: function (event) {
     wx.navigateTo({
-      url: "../new/new?title=" + this.data.diaryTitle,
+      url: "../post/post"
     });
-  },
-
-  // 取消标题输入
-  touchCancel: function (event) {
-    this.hideModal();
-    this.clearTitle();
-  },
-
-  // 标题输入事件
-  titleInput: function (event) {
-    this.setData({
-      diaryTitle: event.detail.value,
-    })
   }
 })

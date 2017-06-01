@@ -1,0 +1,41 @@
+<import src="../common/head.wxml" />
+<import src="../common/foot.wxml" />
+
+<view class="container">
+  <template is="head" data="{{title: '新建看法'}}" />
+
+  <view class="page-body">
+    <view class="page-section">
+      <view class="weui-cells__title">手机号</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" type="number" auto-focus maxlength="11" placeholder="请输入手机号" bindinput="onPhoneInput" />
+        </view>
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">对Ta说</view>
+      <view class="textarea-wrp">
+        <textarea bindinput="onTextInput" placeholder="请输入你想对他说的话" style="height: 3em" />
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">送图</view>
+      <view class="image-wrp">
+        <image src=""></image>
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">送短视频</view>
+      <view class="image-wrp">
+        <image src=""></image>
+      </view>
+    </view>
+
+    <button class="button-send"  type="primary">发布</button>
+  </view>
+  <template is="foot" />
+</view>

@@ -20,7 +20,7 @@
 /**mine.wxss**/
 
 .header {
-  height: 130px;
+  height: 350rpx;
   background: white;
 }
 
@@ -59,6 +59,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    clear: both;
+}
+
+.header .divider-horizen{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  width: 80%;
+  border-top: 1px solid #dcdcdc;
 }
 
 .tablist .tab {

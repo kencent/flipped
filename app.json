@@ -3,7 +3,8 @@
     "pages/square/square",
     "pages/mine/mine",
     "pages/logs/logs",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "dark",
