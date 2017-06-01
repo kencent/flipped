@@ -4,6 +4,24 @@ Page({
   data:{
     text:"Page square"
   },
+  onPullDownRefresh: function () {
+    util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
+      res => {
+        if(res.statusCode == 200){
+          wx.showModal({
+            title: '请求成功',
+            content: res.data,
+            showCancel: false
+          })
+        }
+      }
+    ).catch(function(res){
+      console.log(res)
+    })
+    setTimeout(function(){
+      wx.stopPullDownRefresh()
+    },2000)
+  },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
