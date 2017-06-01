@@ -17,7 +17,7 @@
     <view class="page-section">
       <view class="page-section-title">对Ta说</view>
       <view class="textarea-wrp">
-        <textarea bindinput="onTextInput" placeholder="请输入你想对他说的话" style="height: 3em" />
+        <textarea bindinput="onTextInput" placeholder="请输入你想对他说的话"/>
       </view>
     </view>
 
@@ -35,7 +35,7 @@
       </view>
     </view>
 
-    <button class="button-send"  type="primary">发布</button>
+    <button class="button-send" bindtap="onSendData" type="primary">发布</button>
   </view>
   <template is="foot" />
 </view>

@@ -75,7 +75,7 @@ function postRequest(url, data, header) {
 
 function getToken() {
   // 并设置到头部 Authorization: SRP {token}
-  if (wx.getStorageSync('clientKey')===""){
+  if (wx.getStorageSync('clientKey') === "") {
     return undefined
   }
   var ClientKey = sjcl.codec.hex.toBits(wx.getStorageSync('clientKey'))
@@ -84,10 +84,10 @@ function getToken() {
   var seq = wx.getStorageSync("seq") === "" ? 1 : wx.getStorageSync("seq")
   ///每次拿到toaken之后，seq++
   wx.setStorageSync('seq', seq + 1)
-  console.log("seq is "+seq)
+  console.log("seq is " + seq)
   //var token = {I: username, t: new Date().getTime(), q: seq, clt: {p: "wxapp", v: 10000}, r: sjcl.random.randomWords(1)[0]};
-  var token = { I: wx.getStorageSync('username'), t: new Date().getTime(), q: seq, clt: { p: "wxapp", v: 10000 }, r: sjcl.random.randomWords(1,0)[0]};
-  
+  var token = { I: wx.getStorageSync('username'), t: new Date().getTime(), q: seq, clt: { p: "wxapp", v: 10000 }, r: sjcl.random.randomWords(1, 0)[0] };
+
   token = sjcl.codec.utf8String.toBits(JSON.stringify(token));
   // iv是前后台写死的一个固定的值 
   var iv = sjcl.codec.hex.toBits("bfd3814678afe0036efa67ca8da44e2e");
@@ -182,7 +182,7 @@ function refreshToken(N_num_bits) {
  * url 页面的路径，
  * page  当前是那个页，续期后重新加载
  */
-function getRequestWithRefreshToken(url,page){
+function getRequestWithRefreshToken(url, page) {
   var token = getToken()
   console.log("from mine page token [" + token + "]")
   var username = wx.getStorageSync('username')
@@ -222,6 +222,48 @@ function getRequestWithRefreshToken(url,page){
     console.log(res)
   })
 }
+
+function postRequestWithRereshToken(url, data) {
+  var token = getToken()
+  console.log("from mine page token [" + token + "]")
+  var username = wx.getStorageSync('username')
+  if (token == undefined) {//此时用户应该并没有登录过
+    wx.redirectTo({
+      url: '../../pages/login/login',
+    })
+    return Promise.reject(new Error("user not login"))
+  }
+  return postRequest(url, data,{
+    'Content-Type': 'application/json',
+    "x-uid": wx.getStorageSync('username'),
+    'Authorization': "SRP " + token
+  }).then(function (res) {
+    if (res.statusCode == 200) {
+      return Promise.resolve(res)
+    } else if (res.statusCode == 401) {//授权过去，重新授权
+      var N_num_bits = res.header['WWW-Authenticate'].split(',')[1].split('=')[1].split('"')[1]
+      console.log(N_num_bits)
+      refreshToken(N_num_bits).then(function (res) {
+        console.log(res)
+        if (res == 200) {//续期成功
+          //重新打开当前页面
+          wx.showToast({
+            title: '操作失败，请重试',
+            icon:'loading'
+          })
+        }
+      }).catch(function (res) {//续期因为某些原因失败了
+        console.log(res)
+        //跳转到登录页面重新登录
+        wx.redirectTo({
+          url: '../../pages/login/login',
+        })
+      })
+    }
+  }).catch(function (res) {
+    console.log(res)
+  })
+}
 function formatLocation(longitude, latitude) {
   if (typeof longitude === 'string' && typeof latitude === 'string') {
     longitude = parseFloat(longitude)
@@ -232,8 +274,8 @@ function formatLocation(longitude, latitude) {
   latitude = latitude.toFixed(2)
 
   return {
-    longitude: longitude.toString().split('.'),
-    latitude: latitude.toString().split('.')
+    lng: longitude,
+    lat: latitude
   }
 }
 
@@ -244,5 +286,6 @@ module.exports = {
   getToken: getToken,
   refreshToken: refreshToken,
   getRequestWithRefreshToken: getRequestWithRefreshToken,
+  postRequestWithRereshToken: postRequestWithRereshToken,
   formatLocation: formatLocation
 }

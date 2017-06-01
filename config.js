@@ -18,7 +18,10 @@ var config = {
     squreUrl:`https://${host}/squre`,
 
     //用户请求 
-    users:`https://${host}/users`
+    users:`https://${host}/users`,
+
+    //发送心态请求
+    postflippedwords: `https://${host}/flippedwords`,
 };
 
 module.exports = config

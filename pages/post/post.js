@@ -1,3 +1,5 @@
+var util = require('../../utils/util')
+const postflippedwords = require('../../config').postflippedwords
 // new.js
 Page({
 
@@ -5,23 +7,61 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasLocation: false,
     phone: "",
     text: "",
     image: "",
     video: ""
   },
-
+  getLocation: function () {
+    var that = this
+    wx.getLocation({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          hasLocation: true,
+          location: util.formatLocation(res.longitude, res.latitude)
+        })
+      }
+    })
+  },
   onPhoneInput: function (e) {
-    console.log(e)
+    this.setData({
+      phone:e.detail.value
+    })
   },
   onTextInput: function (e) {
-    console.log(e)
+    this.setData({
+      text:e.detail.value
+    })
+  },
+  onSendData:function(){
+    let data = {}
+    data.sendto = this.data.phone + ""
+    data.contents = []
+    let textContent = {}
+    textContent.type = "text"
+    textContent.text = this.data.text
+    textContent.link = ""
+    data.contents.push(textContent)
+    data.lat = parseFloat(this.data.location.lat)
+    data.lng = parseFloat(this.data.location.lng)
+    util.postRequestWithRereshToken(postflippedwords,data ).then(
+      res => {
+        console.log(res)
+        wx.showModal({
+          title: '请求成功',
+          content: res.data,
+          showCancel: false
+        })
+      }
+    )
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getLocation()
   },
 
   /**
