@@ -16,6 +16,9 @@ function formatTime(date) {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+function successHttp(code){
+  return code == 200 || code == 201
+}
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -197,14 +200,14 @@ function getRequestWithRefreshToken(url, page) {
     "x-uid": wx.getStorageSync('username'),
     'Authorization': "SRP " + token
   }).then(function (res) {
-    if (res.statusCode == 200) {
+    if (successHttp(res.statusCode)) {
       return Promise.resolve(res)
     } else if (res.statusCode == 401) {//授权过去，重新授权
       var N_num_bits = res.header['WWW-Authenticate'].split(',')[1].split('=')[1].split('"')[1]
       console.log(N_num_bits)
       refreshToken(N_num_bits).then(function (res) {
         console.log(res)
-        if (res == 200) {//续期成功
+        if (successHttp(res.statusCode)) {//续期成功
           //重新打开当前页面
           wx.reLaunch({
             url: page,
@@ -238,19 +241,21 @@ function postRequestWithRereshToken(url, data) {
     "x-uid": wx.getStorageSync('username'),
     'Authorization': "SRP " + token
   }).then(function (res) {
-    if (res.statusCode == 200) {
+    if (successHttp(res.statusCode)) {
       return Promise.resolve(res)
     } else if (res.statusCode == 401) {//授权过去，重新授权
       var N_num_bits = res.header['WWW-Authenticate'].split(',')[1].split('=')[1].split('"')[1]
       console.log(N_num_bits)
       refreshToken(N_num_bits).then(function (res) {
         console.log(res)
-        if (res == 200) {//续期成功
+        if (successHttp(res.statusCode)) {//续期成功
           //重新打开当前页面
           wx.showToast({
             title: '操作失败，请重试',
             icon:'loading'
           })
+        }else{
+          return Promise.reject(res)
         }
       }).catch(function (res) {//续期因为某些原因失败了
         console.log(res)
@@ -262,6 +267,7 @@ function postRequestWithRereshToken(url, data) {
     }
   }).catch(function (res) {
     console.log(res)
+    return Promise.reject(res)
   })
 }
 function formatLocation(longitude, latitude) {

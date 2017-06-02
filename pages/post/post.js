@@ -37,7 +37,7 @@ Page({
   },
   onSendData:function(){
     let data = {}
-    data.sendto = this.data.phone + ""
+    data.sendto = this.data.phone * 1 
     data.contents = []
     let textContent = {}
     textContent.type = "text"
@@ -50,12 +50,14 @@ Page({
       res => {
         console.log(res)
         wx.showModal({
-          title: '请求成功',
-          content: res.data,
+          title: '发送成功',
+          content: '返回id是 【' + res.data.id+'】',
           showCancel: false
         })
       }
-    )
+    ).catch(function(res){
+      console.log(res);
+    })
   },
   /**
    * 生命周期函数--监听页面加载
