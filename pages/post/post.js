@@ -193,11 +193,9 @@ Page({
           filePath: res.tempFilePaths[0],
         }
       )
-      if (wx.getStorageSync('signUrl') === '') {
+
         return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
-      } else {
-        return util.getStorage('signUrl')
-      }
+
     }).catch(res => {
       //放弃选择
     }).then(res => {
@@ -234,7 +232,6 @@ Page({
           icon: 'loading',
           duration: 3000
         })
-        util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
     })
   },
@@ -246,12 +243,7 @@ Page({
           filePath: res.tempFilePath,
         }
       )
-      if (wx.getStorageSync('signUrl') === '') {
         return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
-      } else {
-        return util.getStorage('signUrl')
-      }
-
 
     }).catch(res => {
       //放弃选择
@@ -289,7 +281,6 @@ Page({
           icon: 'loading',
           duration: 3000
         })
-        util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
     }).catch(res=>{
       //上传失败
@@ -344,7 +335,6 @@ Page({
               icon: 'loading',
               duration: 3000
             })
-            util.getRequestWithRefreshToken(signUlr, 'page/post/post')
           }
         }).catch(res =>{
           //上传录音失败
@@ -426,7 +416,8 @@ Page({
       tempFilePath: '',
       formatedRecordTime: util.formatTime(0),
       recordTime: 0,
-      playTime: 0
+      playTime: 0,
+      audio:''
     })
   }
 })
