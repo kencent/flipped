@@ -19,9 +19,10 @@ Page({
     text: "",
     image: "",
     video: "",
-    buttonEnable:true,
+    audio:"",
+    buttonEnable: true,
 
-//录音相关数据
+    //录音相关数据
     recording: false,
     playing: false,
     hasRecord: false,
@@ -55,11 +56,11 @@ Page({
   onSendData: function () {
     wx.showToast({
       title: '发送中》。',
-      icon:'loading'
+      icon: 'loading'
     })
     var that = this;
     this.setData({
-      buttonEnable:false
+      buttonEnable: false
     })
     let data = {}
     data.sendto = this.data.phone
@@ -70,17 +71,24 @@ Page({
     textContent.link = ""
     data.contents.push(textContent)
 
-    if (this.data.image && this.data.image != ""){
+    if (this.data.image && this.data.image != "") {
       let imageContent = {}
       imageContent.type = "picture"
       imageContent.text = this.data.image
       data.contents.push(imageContent)
     }
-    if (this.data.video && this.data.video != ""){
+    if (this.data.video && this.data.video != "") {
       let videoContent = {}
       videoContent.type = "video"
       videoContent.text = this.data.video
       data.contents.push(videoContent)
+    }
+    if (this.data.audio && this.data.audio != "") {
+      let audioContent = {}
+      audioContent.type = "audio"
+      audioContent.text = this.data.audio
+      audioContent.duration = 30//这个字段别用
+      data.contents.push(audioContent)
     }
 
     data.lat = parseFloat(this.data.location.lat)
@@ -88,13 +96,13 @@ Page({
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
-        if (res.data.id){
+        if (res.data.id) {
           wx.showModal({
             title: '发送成功',
             content: '返回id是 【' + res.data.id + '】',
             showCancel: false
           })
-        }else{
+        } else {
           wx.showToast({
             title: '发送失败，请重试',
           })
@@ -149,21 +157,21 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
-  videoTaped:function(){
+  videoTaped: function () {
     var that = this;
     wx.showActionSheet({
       itemList: ['删除'],
       success: function (e) {
         // console.log(e.tapIndex)
-        if (e.tapIndex == 0){
+        if (e.tapIndex == 0) {
           that.setData({
-            video:""
+            video: ""
           })
         }
       }
     })
   },
-  imageTaped:function(){
+  imageTaped: function () {
     var that = this;
     wx.showActionSheet({
       itemList: ['删除'],
@@ -226,7 +234,7 @@ Page({
           icon: 'loading',
           duration: 3000
         })
-        util.util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+        util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
     })
   },
@@ -238,13 +246,13 @@ Page({
           filePath: res.tempFilePath,
         }
       )
-      if (wx.getStorageSync('signUrl') === ''){
+      if (wx.getStorageSync('signUrl') === '') {
         return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
-      }else{
+      } else {
         return util.getStorage('signUrl')
       }
-      
-      
+
+
     }).catch(res => {
       //放弃选择
     }).then(res => {
@@ -252,10 +260,10 @@ Page({
       var userKey = wx.getStorageSync("username");
       var fileName = userKey + new Date().getTime()
       var sign = ""
-      if (res.data.sig){
+      if (res.data.sig) {
         sign = res.data.sig
         wx.setStorageSync('signUrl', sign)
-      }else{
+      } else {
         sign = res.data
       }
       return util.uploadFile(sign, that.data.filePath, fileName)
@@ -265,7 +273,7 @@ Page({
     }).then(res => {
       console.log(res)
       var data = JSON.parse(res.data)
-      if (data.code == 0){//成功了
+      if (data.code == 0) {//成功了
         wx.showToast({
           title: '上传成功',
           icon: 'success',
@@ -274,15 +282,18 @@ Page({
         that.setData({
           video: data.data.access_url
         })
-      }else{
+      } else {
         //这里出现了错误，可能是签名过期了
         wx.showToast({
           title: '上传失败，请重试',
           icon: 'loading',
           duration: 3000
         })
-        util.util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+        util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
+    }).catch(res=>{
+      //上传失败
+      console.log(res)
     })
   },
   //下面是录音相关
@@ -304,6 +315,42 @@ Page({
           tempFilePath: res.tempFilePath,
           formatedPlayTime: util.formatTime(that.data.playTime)
         })
+
+        util.getRequestWithRefreshToken(signUlr, 'page/post/post').then(
+          res => {
+            var userKey = wx.getStorageSync("username");
+            var fileName = userKey + new Date().getTime() +"mp3"
+            var sign = res.data.sig
+            return util.uploadFile(sign, that.data.tempFilePath, fileName)
+          }
+        ).catch(res => {
+            //获取签名失败
+            console.log(res)
+        }).then(res => {
+          var data = JSON.parse(res.data)
+          if (data.code == 0) {//成功了
+            wx.showToast({
+              title: '上传录音成功',
+              icon: 'success',
+              duration: 1000
+            })
+            that.setData({
+              audio: data.data.access_url
+            })
+          } else {
+            //这里出现了错误，可能是签名过期了
+            wx.showToast({
+              title: '上传录音失败，请重试',
+              icon: 'loading',
+              duration: 3000
+            })
+            util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+          }
+        }).catch(res =>{
+          //上传录音失败
+          console.log(res)
+        })
+
       },
       complete: function () {
         that.setData({ recording: false })
