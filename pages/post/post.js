@@ -74,11 +74,17 @@ Page({
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
-        wx.showModal({
-          title: '发送成功',
-          content: '返回id是 【' + res.data.id + '】',
-          showCancel: false
-        })
+        if (res.data.id){
+          wx.showModal({
+            title: '发送成功',
+            content: '返回id是 【' + res.data.id + '】',
+            showCancel: false
+          })
+        }else{
+          wx.showToast({
+            title: '发送失败，请重试',
+          })
+        }
       }
     ).catch(function (res) {
       wx.showToast({

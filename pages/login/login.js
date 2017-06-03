@@ -101,6 +101,9 @@ Page({
   },
   // 登录  
   login: function () {
+    wx.showToast({
+      title: '登录中..',
+    })
     if (this.data.logindisable){
       return
     }
@@ -212,6 +215,7 @@ Page({
           that.setData({
             logindisable: false
           })
+          wx.hideToast()
         }
         )
     }
