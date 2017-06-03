@@ -66,6 +66,7 @@ Page({
       var title = '';
       var hasPic = false;
       var hasVideo = false;
+      var hasAudio = false;
       for(var j=0; j<contents.length; j++){
         var content = contents[j];
         if(content.type == 'text'){
@@ -74,7 +75,13 @@ Page({
           hasPic = true;
         }else if(content.type == 'video'){
           hasVideo = true;
+        }else if(content.type == 'audio'){
+          hasAudio = true;
         }
+      }
+      var orginTitle = title;
+      if(hasAudio){
+        title = '[音频]'+title;
       }
       if(hasVideo){
         title = '[视频]'+title;
@@ -82,9 +89,17 @@ Page({
       if(hasPic){
         title = '[图片]'+title;
       }
+      flippedword.orginTitle = orginTitle; 
       flippedword.title = title;
       flippedword.contents = contents;
+      flippedword.jsonStr = JSON.stringify(flippedword);
+
     }
     return flippedwords;
+  },
+  gotoDetail:function(event){
+    wx.navigateTo({
+      url: '/pages/detail/detail?data=' + event.currentTarget.dataset.flippedword
+    })
   }
 })

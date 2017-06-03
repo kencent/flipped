@@ -3,23 +3,9 @@
 <view class="weui-panel weui-panel_access">
   <view class="weui-panel__bd">
     <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
-      <view class="weui-media-box weui-media-box_text">
-      <view class="weui-media-box__title weui-media-box__title_in-text">{{flippedword.title}}</view>
-      <!--<block wx:for="{{flippedword.contents}}" wx:for-item="content"> 
-        <block wx:if="{{content.type == 'text'}}">
-          <view class="weui-media-box__title weui-media-box__title_in-text">{{content.text}}</view>
-        </block>
-        <block wx:elif="{{content.type == 'picture'}}">        
-          <image mode="aspectFill" src="{{content.text}}" />   
-        </block>
-        <block wx:elif="{{content.type == 'video'}}">
-          <video src="{{content.text}}" ></video>
-        </block>
-        
-      </block>-->
-        
-        
-            <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
+      <view bindtap="gotoDetail" data-flippedword="{{flippedword.jsonStr}}" class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">{{flippedword.title}}</view>
+        <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
       </view>
     </block>
   </view>

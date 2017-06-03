@@ -1,0 +1,37 @@
+<!--detail.wxml-->
+<view class="weui-panel weui-panel_access">
+  <view class="weui-panel__bd">
+    
+      <view class="weui-media-box weui-media-box_text">
+        <block wx:for="{{flippedword.contents}}" wx:for-item="content"> 
+        <block wx:if="{{content.type == 'text'}}">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{content.text}}</view>
+        </block>
+        <block wx:elif="{{content.type == 'picture'}}">        
+          <image style="width: 250px; height: 200px; background-color: #eeeeee;" mode="aspectFill" src="{{content.text}}" />   
+        </block>
+        <block wx:elif="{{content.type == 'video'}}">
+          <video style="width: 250px; height: 200px; background-color: #eeeeee;" src="{{content.text}}" ></video>
+        </block>
+        <block wx:elif="{{content.type == 'audio'}}">
+          <audio style="width: 250px; background-color: #eeeeee;" controls="true" name="音频" author="一个暗恋的人" src="{{content.text}}" ></audio>
+        </block>
+      </block>
+        <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
+      </view>
+  </view>
+
+</view>
+
+<!--<block wx:for="{{flippedword.contents}}" wx:for-item="content"> 
+        <block wx:if="{{content.type == 'text'}}">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{content.text}}</view>
+        </block>
+        <block wx:elif="{{content.type == 'picture'}}">        
+          <image mode="aspectFill" src="{{content.text}}" />   
+        </block>
+        <block wx:elif="{{content.type == 'video'}}">
+          <video src="{{content.text}}" ></video>
+        </block>
+        
+      </block>-->
