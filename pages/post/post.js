@@ -131,6 +131,34 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
+  videoTaped:function(){
+    var that = this;
+    wx.showActionSheet({
+      itemList: ['删除'],
+      success: function (e) {
+        // console.log(e.tapIndex)
+        if (e.tapIndex == 0){
+          that.setData({
+            video:""
+          })
+        }
+      }
+    })
+  },
+  imageTaped:function(){
+    var that = this;
+    wx.showActionSheet({
+      itemList: ['删除'],
+      success: function (e) {
+        // console.log(e.tapIndex)
+        if (e.tapIndex == 0) {
+          that.setData({
+            image: ""
+          })
+        }
+      }
+    })
+  },
   chooseImage: function () {
     var that = this
     util.chooseImage(1).then(res => {
