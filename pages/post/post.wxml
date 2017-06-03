@@ -6,7 +6,7 @@
 
   <view class="page-body">
     <view class="page-section">
-      <view class="weui-cells__title">手机号</view>
+      <view class="weui-cells__title">Ta的手机号</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <input class="weui-input" type="number" auto-focus maxlength="11" placeholder="请输入手机号" bindinput="onPhoneInput" />
@@ -22,20 +22,44 @@
     </view>
 
     <view class="page-section">
-      <view class="page-section-title">送图</view>
-      <view class="image-wrp">
-        <image src=""></image>
+    <view class="page-section-title">贴张图片</view>
+      <view class="page-body-info">
+
+        <block wx:if="{{imageSrc}}">
+          <image src="{{imageSrc}}" class="image" mode="aspectFit"></image>
+        </block>
+
+        <block wx:else>
+          <view class="image-plus image-plus-nb" bindtap="chooseImage">
+            <view class="image-plus-horizontal"></view>
+            <view class="image-plus-vertical"></view>
+          </view>
+          <view class="image-plus-text">选择图片</view>
+        </block>
+
       </view>
     </view>
 
     <view class="page-section">
-      <view class="page-section-title">送短视频</view>
-      <view class="image-wrp">
-        <image src=""></image>
+    <view class="page-section-title">贴段视频</view>
+      <view class="page-body-info">
+
+        <block wx:if="{{videoSrc}}">
+          <video src="{{Src}}" class="video" autoplay="true" controls="true"></video>
+        </block>
+
+        <block wx:else>
+          <view class="image-plus image-plus-nb" bindtap="chooseVideo">
+            <view class="image-plus-horizontal"></view>
+            <view class="image-plus-vertical"></view>
+          </view>
+          <view class="image-plus-text">选择视频</view>
+        </block>
+
       </view>
     </view>
 
     <button class="button-send" bindtap="onSendData" type="primary">发布</button>
   </view>
   <template is="foot" />
-</view>
+</view> 

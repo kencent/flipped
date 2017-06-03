@@ -1,5 +1,6 @@
 var util = require('../../utils/util')
 const postflippedwords = require('../../config').postflippedwords
+var uploadFileUrl = "https://14592619.qcloud.la/upload"
 // new.js
 Page({
 
@@ -37,7 +38,7 @@ Page({
   },
   onSendData:function(){
     let data = {}
-    data.sendto = this.data.phone * 1 
+    data.sendto = this.data.phone
     data.contents = []
     let textContent = {}
     textContent.type = "text"
@@ -92,4 +93,82 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
+  chooseImage: function () {
+    var self = this
+
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album'],
+      success: function (res) {
+        console.log('chooseImage success, temp path is', res.tempFilePaths[0])
+
+        var imageSrc = res.tempFilePaths[0]
+
+        wx.uploadFile({
+          url: uploadFileUrl,
+          filePath: imageSrc,
+          name: 'data',
+          success: function (res) {
+            console.log('uploadImage success, res is:', res)
+
+            wx.showToast({
+              title: '上传成功',
+              icon: 'success',
+              duration: 1000
+            })
+
+            self.setData({
+              imageSrc
+            })
+          },
+          fail: function ({errMsg}) {
+            console.log('uploadImage fail, errMsg is', errMsg)
+          }
+        })
+
+      },
+      fail: function ({errMsg}) {
+        console.log('chooseImage fail, err is', errMsg)
+      }
+    })
+  },
+  chooseVideo: function () {
+    var self = this
+
+    wx.chooseVideo({
+      maxDuration:30,
+      success: function (res) {
+        console.log('chooseVideo success, temp path is', res.tempFilePath)
+
+        var videoSrc = res.tempFilePath
+
+        wx.uploadFile({
+          url: uploadFileUrl,
+          filePath: videoSrc,
+          name: 'data',
+          success: function (res) {
+            console.log('uploadVideo success, res is:', res)
+
+            wx.showToast({
+              title: '上传成功',
+              icon: 'success',
+              duration: 1000
+            })
+
+            self.setData({
+              videoSrc
+            })
+          },
+          fail: function ({errMsg}) {
+            console.log('uploadVideo fail, errMsg is', errMsg)
+          }
+        })
+
+      },
+      fail: function ({errMsg}) {
+        console.log('chooseVideo fail, err is', errMsg)
+      }
+    })
+  }
 })
