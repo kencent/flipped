@@ -63,6 +63,26 @@ Page({
       var flippedword = flippedwords[i];
       var contentStr = flippedword.contents;
       var contents = JSON.parse(contentStr);
+      var title = '';
+      var hasPic = false;
+      var hasVideo = false;
+      for(var j=0; j<contents.length; j++){
+        var content = contents[j];
+        if(content.type == 'text'){
+          title = content.text;
+        }else if(content.type == 'picture'){
+          hasPic = true;
+        }else if(content.type == 'video'){
+          hasVideo = true;
+        }
+      }
+      if(hasVideo){
+        title = '[视频]'+title;
+      }
+      if(hasPic){
+        title = '[图片]'+title;
+      }
+      flippedword.title = title;
       flippedword.contents = contents;
     }
     return flippedwords;

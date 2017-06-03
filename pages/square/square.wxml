@@ -4,8 +4,8 @@
   <view class="weui-panel__bd">
     <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
       <view class="weui-media-box weui-media-box_text">
-
-      <block wx:for="{{flippedword.contents}}" wx:for-item="content"> 
+      <view class="weui-media-box__title weui-media-box__title_in-text">{{flippedword.title}}</view>
+      <!--<block wx:for="{{flippedword.contents}}" wx:for-item="content"> 
         <block wx:if="{{content.type == 'text'}}">
           <view class="weui-media-box__title weui-media-box__title_in-text">{{content.text}}</view>
         </block>
@@ -16,7 +16,7 @@
           <video src="{{content.text}}" ></video>
         </block>
         
-      </block>
+      </block>-->
         
         
             <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
