@@ -25,8 +25,8 @@
     <view class="page-section-title">贴张图片</view>
       <view class="page-body-info">
 
-        <block wx:if="{{imageSrc}}">
-          <image src="{{imageSrc}}" class="image" mode="aspectFit"></image>
+        <block wx:if="{{image}}">
+          <image src="{{image}}" class="image" mode="aspectFit"></image>
         </block>
 
         <block wx:else>
@@ -44,8 +44,8 @@
     <view class="page-section-title">贴段视频</view>
       <view class="page-body-info">
 
-        <block wx:if="{{videoSrc}}">
-          <video src="{{Src}}" class="video" autoplay="true" controls="true"></video>
+        <block wx:if="{{video}}">
+          <video src="{{video}}" class="video" autoplay="true" controls="true"></video>
         </block>
 
         <block wx:else>
@@ -59,7 +59,7 @@
       </view>
     </view>
 
-    <button class="button-send" bindtap="onSendData" type="primary">发布</button>
+    <button class="button-send" disabled="{{!buttonEnable}}" bindtap="onSendData" type="primary">发布</button>
   </view>
   <template is="foot" />
 </view> 

@@ -3,6 +3,7 @@ var sjcl = require('sjcl.js')
 var app = getApp()
 const srpB = require('../config').srpB
 const srpM2 = require('../config').srpM2
+const uploadFileUrl = require('../config').uploadFileUrl
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -47,6 +48,49 @@ Promise.prototype.finally = function (callback) {
     reason => P.resolve(callback()).then(() => { throw reason })
   );
 };
+
+
+/**
+ * 微信选择视频
+ */
+function chooseVideo(maxDuration) {
+  var request = wxPromisify(wx.chooseVideo)
+  return request({
+    maxDuration: maxDuration,
+  })
+}
+
+/**
+ * 微信选择照片
+ */
+function chooseImage(count){
+  var request = wxPromisify(wx.chooseImage)
+  return request({
+    count: count,
+    sizeType: ['compressed']
+  })
+}
+
+/**
+ * 微信上传文件promis封装
+ * signature:服务器获取的签名
+ * filePath：文件的路径
+ * fileName:文件命名
+ */
+function uploadFile(signature, filePath, fileName){
+  var request = wxPromisify(wx.uploadFile)
+  return request({
+    url: uploadFileUrl + '/' + fileName,
+    filePath: filePath,
+    header: {
+      'Authorization': signature
+    },
+    name: 'filecontent',
+    formData: {
+      op: 'upload'
+    },
+  })
+}
 /**
  * 微信请求get方法
  * url
@@ -303,6 +347,16 @@ function formatLocation(longitude, latitude) {
   }
 }
 
+/**
+ * 那存储数值的promise封装
+ */
+function getStorage(key){
+  var request = wxPromisify(wx.getStorage);
+  return request({
+    key:key
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   postRequest: postRequest,
@@ -311,5 +365,9 @@ module.exports = {
   refreshToken: refreshToken,
   getRequestWithRefreshToken: getRequestWithRefreshToken,
   postRequestWithRereshToken: postRequestWithRereshToken,
-  formatLocation: formatLocation
+  formatLocation: formatLocation,
+  chooseImage: chooseImage,
+  uploadFile:uploadFile,
+  chooseVideo: chooseVideo,
+  getStorage: getStorage
 }

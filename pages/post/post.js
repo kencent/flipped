@@ -1,6 +1,7 @@
 var util = require('../../utils/util')
 const postflippedwords = require('../../config').postflippedwords
-var uploadFileUrl = "https://14592619.qcloud.la/upload"
+const uploadFileUrl = require('../../config').uploadFileUrl
+const signUlr = require('../../config').signUlr
 // new.js
 Page({
 
@@ -12,7 +13,8 @@ Page({
     phone: "",
     text: "",
     image: "",
-    video: ""
+    video: "",
+    buttonEnable:true
   },
   getLocation: function () {
     var that = this
@@ -28,15 +30,23 @@ Page({
   },
   onPhoneInput: function (e) {
     this.setData({
-      phone:e.detail.value
+      phone: e.detail.value
     })
   },
   onTextInput: function (e) {
     this.setData({
-      text:e.detail.value
+      text: e.detail.value
     })
   },
-  onSendData:function(){
+  onSendData: function () {
+    wx.showToast({
+      title: '发送中》。',
+      icon:'loading'
+    })
+    var that = this;
+    this.setData({
+      buttonEnable:false
+    })
     let data = {}
     data.sendto = this.data.phone
     data.contents = []
@@ -45,19 +55,41 @@ Page({
     textContent.text = this.data.text
     textContent.link = ""
     data.contents.push(textContent)
+
+    if (this.data.image && this.data.image != ""){
+      let imageContent = {}
+      imageContent.type = "picture"
+      imageContent.text = this.data.image
+      data.contents.push(imageContent)
+    }
+    if (this.data.video && this.data.video != ""){
+      let videoContent = {}
+      videoContent.type = "video"
+      videoContent.text = this.data.video
+      data.contents.push(videoContent)
+    }
+
     data.lat = parseFloat(this.data.location.lat)
     data.lng = parseFloat(this.data.location.lng)
-    util.postRequestWithRereshToken(postflippedwords,data ).then(
+    util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
         wx.showModal({
           title: '发送成功',
-          content: '返回id是 【' + res.data.id+'】',
+          content: '返回id是 【' + res.data.id + '】',
           showCancel: false
         })
       }
-    ).catch(function(res){
-      console.log(res);
+    ).catch(function (res) {
+      wx.showToast({
+        title: '发布失败',
+        icon: 'loading'
+      })
+    }).finally(res => {
+      that.setData({
+        buttonEnable: true
+      })
+      wx.hideToast();
     })
   },
   /**
@@ -94,80 +126,110 @@ Page({
     wx.stopPullDownRefresh()
   },
   chooseImage: function () {
-    var self = this
-
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album'],
-      success: function (res) {
-        console.log('chooseImage success, temp path is', res.tempFilePaths[0])
-
-        var imageSrc = res.tempFilePaths[0]
-
-        wx.uploadFile({
-          url: uploadFileUrl,
-          filePath: imageSrc,
-          name: 'data',
-          success: function (res) {
-            console.log('uploadImage success, res is:', res)
-
-            wx.showToast({
-              title: '上传成功',
-              icon: 'success',
-              duration: 1000
-            })
-
-            self.setData({
-              imageSrc
-            })
-          },
-          fail: function ({errMsg}) {
-            console.log('uploadImage fail, errMsg is', errMsg)
-          }
+    var that = this
+    util.chooseImage(1).then(res => {
+      that.setData(
+        {
+          filePath: res.tempFilePaths[0],
+        }
+      )
+      if (wx.getStorageSync('signUrl') === '') {
+        return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+      } else {
+        return util.getStorage('signUrl')
+      }
+    }).catch(res => {
+      //放弃选择
+    }).then(res => {
+      console.log(res)
+      var userKey = wx.getStorageSync("username");
+      var fileName = userKey + new Date().getTime()
+      var sign = ""
+      if (res.data.sig) {
+        sign = res.data.sig
+        wx.setStorageSync('signUrl', sign)
+      } else {
+        sign = res.data
+      }
+      return util.uploadFile(sign, that.data.filePath, fileName)
+    }).catch(res => {
+      //上传失败
+      console.log(res)
+    }).then(res => {
+      console.log(res)
+      var data = JSON.parse(res.data)
+      if (data.code == 0) {//成功了
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success',
+          duration: 1000
         })
-
-      },
-      fail: function ({errMsg}) {
-        console.log('chooseImage fail, err is', errMsg)
+        that.setData({
+          image: data.data.access_url
+        })
+      } else {
+        //这里出现了错误，可能是签名过期了
+        wx.showToast({
+          title: '上传失败，请重试',
+          icon: 'loading',
+          duration: 3000
+        })
+        util.util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
     })
   },
   chooseVideo: function () {
-    var self = this
-
-    wx.chooseVideo({
-      maxDuration:30,
-      success: function (res) {
-        console.log('chooseVideo success, temp path is', res.tempFilePath)
-
-        var videoSrc = res.tempFilePath
-
-        wx.uploadFile({
-          url: uploadFileUrl,
-          filePath: videoSrc,
-          name: 'data',
-          success: function (res) {
-            console.log('uploadVideo success, res is:', res)
-
-            wx.showToast({
-              title: '上传成功',
-              icon: 'success',
-              duration: 1000
-            })
-
-            self.setData({
-              videoSrc
-            })
-          },
-          fail: function ({errMsg}) {
-            console.log('uploadVideo fail, errMsg is', errMsg)
-          }
+    var that = this
+    util.chooseVideo(30).then(res => {
+      that.setData(
+        {
+          filePath: res.tempFilePath,
+        }
+      )
+      if (wx.getStorageSync('signUrl') === ''){
+        return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+      }else{
+        return util.getStorage('signUrl')
+      }
+      
+      
+    }).catch(res => {
+      //放弃选择
+    }).then(res => {
+      console.log(res)
+      var userKey = wx.getStorageSync("username");
+      var fileName = userKey + new Date().getTime()
+      var sign = ""
+      if (res.data.sig){
+        sign = res.data.sig
+        wx.setStorageSync('signUrl', sign)
+      }else{
+        sign = res.data
+      }
+      return util.uploadFile(sign, that.data.filePath, fileName)
+    }).catch(res => {
+      //签名获取失败了
+      console.log(res)
+    }).then(res => {
+      console.log(res)
+      var data = JSON.parse(res.data)
+      if (data.code == 0){//成功了
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success',
+          duration: 1000
         })
-
-      },
-      fail: function ({errMsg}) {
-        console.log('chooseVideo fail, err is', errMsg)
+        that.setData({
+          video: data.data.access_url
+        })
+      }else{
+        //这里出现了错误，可能是签名过期了
+        wx.showToast({
+          title: '上传失败，请重试',
+          icon: 'loading',
+          duration: 3000
+        })
+        util.util.getRequestWithRefreshToken(signUlr, 'page/post/post')
       }
     })
   }
