@@ -7,30 +7,26 @@ Page({
   onPullDownRefresh: function () {
     util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
       res => {
+        wx.stopPullDownRefresh();
+
+        
         if(res.statusCode == 200){
-          // wx.showModal({
-          //   title: '请求成功',
-          //   content: res.data,
-          //   showCancel: false
-          // })
-          var flippedwords = res.data.flippedwords;
-          for (var i = 0; i < flippedwords.length; i++){
-            var flippedword = flippedwords[i];
-            var contentStr = flippedword.contents;
-            var contents = JSON.parse(contentStr);
-            flippedword.contents = contents;
-          }
+          wx.showToast({
+            title: '数据已到最新',
+          })
+
+         
+          
           this.setData({
-            flippedwords: flippedwords
+            flippedwords: this.dealData(res.data.flippedwords)
           })
         }
       }
     ).catch(function(res){
-      console.log(res)
+      console.log(res);
+      wx.stopPullDownRefresh();
     })
-    setTimeout(function(){
-      wx.stopPullDownRefresh()
-    },2000)
+    
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -42,15 +38,10 @@ Page({
         //   showCancel: false
         // })
 
-        var flippedwords = res.data.flippedwords;
-        for (var i = 0; i < flippedwords.length; i++) {
-          var flippedword = flippedwords[i];
-          var contentStr = flippedword.contents;
-          var contents = JSON.parse(contentStr);
-          flippedword.contents = contents;
-        }
+
+        
         this.setData({
-          flippedwords: flippedwords
+          flippedwords: this.dealData(res.data.flippedwords)
         })
       }
     )
