@@ -26,7 +26,7 @@
       <view class="page-body-info">
 
         <block wx:if="{{image}}">
-          <image src="{{image}}" class="image" mode="aspectFit"></image>
+          <image src="{{image}}" bindtap="imageTaped" class="image" mode="aspectFit"></image>
         </block>
 
         <block wx:else>
@@ -45,7 +45,9 @@
       <view class="page-body-info">
 
         <block wx:if="{{video}}">
-          <video src="{{video}}" class="video" autoplay="true" controls="true"></video>
+          
+          <video src="{{video}}" class="video" autoplay="true" controls="true"  ></video>
+          <button bindtap="videoTaped" size="mini" type="warn">删除</button>
         </block>
 
         <block wx:else>

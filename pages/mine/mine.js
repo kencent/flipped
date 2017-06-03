@@ -85,8 +85,7 @@ Page({
     })
   },
   onShow: function () {
-    this.hideModal();
-    this.clearTitle();
+   
   },
   onLoad: function () {
     var that = this
