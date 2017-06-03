@@ -201,11 +201,21 @@ function getRequestWithRefreshToken(url, page) {
     'Authorization': "SRP " + token
   }).then(function (res) {
     if (successHttp(res.statusCode)) {
+      console.log("successHttp url" + url);
       return Promise.resolve(res)
     } else if (res.statusCode == 401) {//授权过去，重新授权
+      console.log("401 url" + url);
+      if (!res.header['WWW-Authenticate']){
+        wx.redirectTo({
+          url: '../../pages/login/login',
+        })
+      }
+
       var N_num_bits = res.header['WWW-Authenticate'].split(',')[1].split('=')[1].split('"')[1]
       console.log(N_num_bits)
+      console.log("begin refreshToken");
       refreshToken(N_num_bits).then(function (res) {
+        console.log("refreshToken "+res);
         console.log(res)
         if (successHttp(res.statusCode)) {//续期成功
           //重新打开当前页面
@@ -214,6 +224,7 @@ function getRequestWithRefreshToken(url, page) {
           })
         }
       }).catch(function (res) {//续期因为某些原因失败了
+        console.log("refreshToken fail " + res);
         console.log(res)
         //跳转到登录页面重新登录
         wx.redirectTo({
@@ -242,8 +253,15 @@ function postRequestWithRereshToken(url, data) {
     'Authorization': "SRP " + token
   }).then(function (res) {
     if (successHttp(res.statusCode)) {
+      console.log("successHttp url"+url);
       return Promise.resolve(res)
     } else if (res.statusCode == 401) {//授权过去，重新授权
+      console.log("401 url" + url);
+      if (!res.header['WWW-Authenticate']) {
+        wx.redirectTo({
+          url: '../../pages/login/login',
+        })
+      }
       var N_num_bits = res.header['WWW-Authenticate'].split(',')[1].split('=')[1].split('"')[1]
       console.log(N_num_bits)
       refreshToken(N_num_bits).then(function (res) {
