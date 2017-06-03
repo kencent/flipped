@@ -61,6 +61,71 @@
       </view>
     </view>
 
+<view class="page-section">
+<view class="page-section-title">说段录音</view>
+<view class="page-body-info">
+      <block wx:if="{{recording === false && playing === false && hasRecord === false}}">
+        <view class="page-body-time">
+          <text class="time-big">{{formatedRecordTime}}</text>
+        </view>
+        <view class="page-body-buttons">
+          <view class="page-body-button"></view>
+          <view class="page-body-button" bindtap="startRecord">
+            <image class="record-img" src="/images/record.png"></image>
+          </view>
+          <view class="page-body-button"></view>
+        </view>
+      </block>
+
+      <block wx:if="{{recording === true}}">
+        <view class="page-body-time">
+          <text class="time-big">{{formatedRecordTime}}</text>
+        </view>
+        <view class="page-body-buttons">
+          <view class="page-body-button"></view>
+          <view class="page-body-button" bindtap="stopRecord">
+            <view class="button-stop-record"></view>
+          </view>
+          <view class="page-body-button"></view>
+        </view>
+      </block>
+
+      <block wx:if="{{hasRecord === true && playing === false}}">
+        <view class="page-body-time">
+          <text class="time-big">{{formatedPlayTime}}</text>
+          <text class="time-small">{{formatedRecordTime}}</text>
+        </view>
+        <view class="page-body-buttons">
+          <view class="page-body-button"></view>
+          <view class="page-body-button" bindtap="playVoice">
+            <image class="record-img" src="/images/play.png"></image>
+          </view>
+          <view class="page-body-button" bindtap="clear">
+            <image class="record-img" src="/images/trash.png"></image>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{hasRecord === true && playing === true}}">
+        <view class="page-body-time">
+          <text class="time-big">{{formatedPlayTime}}</text>
+          <text class="time-small">{{formatedRecordTime}}</text>
+        </view>
+        <view class="page-body-buttons">
+          <view class="page-body-button" bindtap="stopVoice">
+            <image class="record-img" src="/images/stop.png"></image>
+          </view>
+          <!-- <view class="page-body-button" bindtap="pauseVoice">
+            <image src="/image/pause.png"></image>
+          </view> -->
+          <view class="page-body-button" bindtap="clear">
+            <image class="record-img" src="/images/trash.png"></image>
+          </view>
+        </view>
+      </block>
+      </view>
+    </view>
+
     <button class="button-send" disabled="{{!buttonEnable}}" bindtap="onSendData" type="primary">发布</button>
   </view>
   <template is="foot" />
