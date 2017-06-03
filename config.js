@@ -15,7 +15,7 @@ var config = {
     srpM2:`https://${host}/srp/M2`,
 
     //广场请求
-    squreUrl:`https://${host}/squre`,
+    squreUrl: `https://${host}/nearby_flippedwords`,
 
     //用户请求 
     users:`https://${host}/users`,
