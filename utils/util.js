@@ -434,8 +434,15 @@ function dealData(flippedwords) {
     flippedword.orginTitle = orginTitle;
     flippedword.title = title;
     flippedword.contents = contents;
-    flippedword.jsonStr = JSON.stringify(flippedword);
 
+    var distanceStr = '';
+    if (flippedword.distance > 0){
+      distanceStr = parseFloat(flippedword.distance/1000.0)
+      distanceStr = distanceStr.toFixed(2)
+      distanceStr = '距离:' + distanceStr + 'km';
+    }
+    flippedword.distanceStr = distanceStr
+    flippedword.jsonStr = JSON.stringify(flippedword)
   }
   return flippedwords;
 }
