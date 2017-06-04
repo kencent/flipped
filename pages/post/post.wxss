@@ -2,14 +2,19 @@
   margin-bottom: 20rpx;
 }
 
+.red_text{
+  display: inline-flex;
+  color: red;
+}
 textarea {
   width: 700rpx;
   padding: 25rpx 0;
 }
 
 .textarea-wrp {
-  padding: 0 25rpx;
+  padding: 0 15rpx;
   background-color: #fff;
+  height: 200rpx;
 }
 
 .button-send {
@@ -31,10 +36,18 @@ textarea {
   width: 150rpx;
   height: 150rpx;
 }
+.page-body-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 50rpx 0 50rpx 0;
+}
 .page-body-wrapper {
   justify-content: space-between;
   flex-grow: 1;
-  margin-bottom: 300rpx;
+  margin-bottom: 100rpx;
 }
 .page-body-time {
   display: flex;

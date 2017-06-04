@@ -58,6 +58,18 @@ Page({
       title: '发送中》。',
       icon: 'loading'
     })
+    if (!(/\d{11}/.test(this.data.phone))){
+      wx.showToast({
+        title: '请输入正确的手机号',
+      })
+      return
+    }
+    if(!this.data.text || this.data.text == ""){
+      wx.showToast({
+        title: '请输入你想对他说的话',
+      })
+      return
+    }
     var that = this;
     this.setData({
       buttonEnable: false
@@ -103,9 +115,17 @@ Page({
             showCancel: false
           })
         } else {
-          wx.showToast({
-            title: '发送失败，请重试',
-          })
+          if (res.data.err){
+            wx.showModal({
+              title: '发送失败',
+              content: res.data.err,
+            })
+          }else{
+            wx.showToast({
+              title: '发送失败，请重试',
+            })
+          }
+          
         }
       }
     ).catch(function (res) {
@@ -117,7 +137,7 @@ Page({
       that.setData({
         buttonEnable: true
       })
-      wx.hideToast();
+      // wx.hideToast();
     })
   },
   /**
