@@ -114,7 +114,7 @@ Page({
 
   gotoDetail: function (event) {
     wx.navigateTo({
-      url: '/pages/detail/detail?data=' + event.currentTarget.dataset.flippedword
+      url: '/pages/detail/detail?id=' + event.currentTarget.dataset.flippedwordId
     })
   },
   
