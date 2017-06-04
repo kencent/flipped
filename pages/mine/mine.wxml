@@ -35,16 +35,15 @@
   
   <view class="header">
     <view class="profile">
-      <image class="avatar" mode="aspectFit" src="{{userInfo.avatarUrl}}"></image>
-      <view class="description">
-        <view class="item">
+      <!--<image class="avatar" mode="aspectFit" src="{{userInfo.avatarUrl}}"></image>-->
+      <!--<view class="description">-->
+        <!--<view class="item">
           <view style="margin-right:5px">{{userInfo.nickName}}</view>
-          <!--<view>{{userInfo.gender == 1?'男':'女'}}</view>-->
-        </view>
-        <view class="item">{{userInfo.city}}</view>
-      </view>
+        </view>-->
+        <!--<view class="item">{{userInfo.city}}</view>-->
+      <!--</view>-->
       <!--<image class="add" mode="aspectFill" src="../../images/icons/add.png" bindtap="touchAdd"></image>-->
-      <button class="add weui-btn-small" type="primary" bindtap="touchAdd">说句悄悄话</button>
+      <button class="add " type="primary" bindtap="touchAdd">说句悄悄话</button>
       <view class="divider-horizen"></view>
     </view>
     <view class="tablist">
