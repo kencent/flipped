@@ -97,9 +97,9 @@ Page({
           return
         }
         wx.stopPullDownRefresh();
-        
+
         this.setData({
-          flippedwords: util.dealData(res.data.flippedwords)
+          flippedwords: util.dealData(res.data.flippedwords.reverse())
         })
       }
     )
