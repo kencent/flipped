@@ -25,6 +25,8 @@ var config = {
   //查询发给我的flippedwords
   myFlippedwords: `https://${host}/my_flippedwords`,
 
+  myPubFlippedwords: `https://${host}/mypub_flippedwords`,
+
   signUlr: `https://${host}/youtusig`,
 
   //上传文件请求

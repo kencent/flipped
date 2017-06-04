@@ -1,6 +1,7 @@
 var util = require('../../utils/util')
 var users = require('../../config').users
 var myFlippedwords = require('../../config').myFlippedwords
+var myPubFlippedwords = require('../../config').myPubFlippedwords
 // Page({
 //   data: {
 //     text: "Page mine"
@@ -38,13 +39,13 @@ var tabs = [
   {
     "icon": iconPath + "mark.png",
     "iconActive": iconPath + "markHL.png",
-    "title": "心情",
+    "title": "我收",
     "extraStyle": "",
   },
   {
     "icon": iconPath + "collect.png",
     "iconActive": iconPath + "collectHL.png",
-    "title": "收藏",
+    "title": "我发",
     "extraStyle": "",
   },
   {
@@ -94,6 +95,23 @@ Page({
     )
   },
 
+  loadMySendData : function(){
+    var that = this
+    util.getRequestWithRefreshToken(myPubFlippedwords, "pages/mine/mine").then(
+      res => {
+
+        if (res.statusCode != 200) {
+          return
+        }
+        wx.stopPullDownRefresh();
+
+        that.setData({
+          flippedwords: util.dealData(res.data.flippedwords.reverse())
+        })
+      }
+    )
+  },
+
   gotoDetail: function (event) {
     wx.navigateTo({
       url: '/pages/detail/detail?data=' + event.currentTarget.dataset.flippedword
@@ -124,8 +142,13 @@ Page({
     this.setData({
       currentTab: template,
       highLightIndex: tabIndex.toString()
+    })
+
+    if (tabIndex == 0) {
+      this.loadData(0)
+    } else if (tabIndex == 1) {
+      this.loadMySendData()
     }
-    );
   },
 
   // 新建日记
