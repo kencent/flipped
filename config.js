@@ -30,6 +30,9 @@ var config = {
 
   //发送心态请求
   postflippedwords: `https://${host}/flippedwords`,
+
+  //反馈
+  feedbackUrl:`https://${host}/feedbacks`
 };
 
 module.exports = config

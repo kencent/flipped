@@ -133,5 +133,10 @@ Page({
     wx.navigateTo({
       url: "../post/post"
     });
+  },
+  feedback:function(e){
+    wx.navigateTo({
+      url: '../feedback/feedback',
+    })
   }
 })

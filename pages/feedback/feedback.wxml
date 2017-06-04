@@ -1,0 +1,128 @@
+<import src="../common/head.wxml" />
+<import src="../common/foot.wxml" />
+
+<view class="container">
+  <template is="head" data="{{title: '感谢反馈'}}" />
+
+  <view class="page-body">
+    
+    <view class="page-section">
+
+      <view class="page-section-title">想对我们说(
+        <view class="red_text">*</view> )</view>
+      <view class="page-body-info">
+        <view class="textarea-wrp">
+          <textarea bindinput="onTextInput" placeholder="请描述你遇到的问题" />
+        </view>
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">上传图片-更加利于我们定位问题</view>
+      <view class="page-body-info">
+
+        <block wx:if="{{image}}">
+          <image src="{{image}}" bindtap="imageTaped" class="image" mode="aspectFit"></image>
+        </block>
+
+        <block wx:else>
+          <view class="image-plus image-plus-nb" bindtap="chooseImage">
+            <view class="image-plus-horizontal"></view>
+            <view class="image-plus-vertical"></view>
+          </view>
+          <view class="image-plus-text">选择图片</view>
+        </block>
+
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">上传视频-更加利于我们定位问题</view>
+      <view class="page-body-info">
+
+        <block wx:if="{{video}}">
+
+          <video src="{{video}}" class="video" autoplay="true" controls="true"></video>
+          <button bindtap="videoTaped" size="mini" type="warn">删除</button>
+        </block>
+
+        <block wx:else>
+          <view class="image-plus image-plus-nb" bindtap="chooseVideo">
+            <view class="image-plus-horizontal"></view>
+            <view class="image-plus-vertical"></view>
+          </view>
+          <view class="image-plus-text">选择视频</view>
+        </block>
+
+      </view>
+    </view>
+
+    <view class="page-section">
+      <view class="page-section-title">说段录音描述也行</view>
+      <view class="page-body-info">
+        <block wx:if="{{recording === false && playing === false && hasRecord === false}}">
+          <view class="page-body-time">
+            <text class="time-big">{{formatedRecordTime}}</text>
+          </view>
+          <view class="page-body-buttons">
+            <view class="page-body-button"></view>
+            <view class="page-body-button" bindtap="startRecord">
+              <image class="record-img" src="/images/record.png"></image>
+            </view>
+            <view class="page-body-button"></view>
+          </view>
+        </block>
+
+        <block wx:if="{{recording === true}}">
+          <view class="page-body-time">
+            <text class="time-big">{{formatedRecordTime}}</text>
+          </view>
+          <view class="page-body-buttons">
+            <view class="page-body-button"></view>
+            <view class="page-body-button" bindtap="stopRecord">
+              <view class="button-stop-record"></view>
+            </view>
+            <view class="page-body-button"></view>
+          </view>
+        </block>
+
+        <block wx:if="{{hasRecord === true && playing === false}}">
+          <view class="page-body-time">
+            <text class="time-big">{{formatedPlayTime}}</text>
+            <text class="time-small">{{formatedRecordTime}}</text>
+          </view>
+          <view class="page-body-buttons">
+            <view class="page-body-button"></view>
+            <view class="page-body-button" bindtap="playVoice">
+              <image class="record-img" src="/images/play.png"></image>
+            </view>
+            <view class="page-body-button" bindtap="clear">
+              <image class="record-img" src="/images/trash.png"></image>
+            </view>
+          </view>
+        </block>
+
+        <block wx:if="{{hasRecord === true && playing === true}}">
+          <view class="page-body-time">
+            <text class="time-big">{{formatedPlayTime}}</text>
+            <text class="time-small">{{formatedRecordTime}}</text>
+          </view>
+          <view class="page-body-buttons">
+            <view class="page-body-button" bindtap="stopVoice">
+              <image class="record-img" src="/images/stop.png"></image>
+            </view>
+            <!-- <view class="page-body-button" bindtap="pauseVoice">
+            <image src="/image/pause.png"></image>
+          </view> -->
+            <view class="page-body-button" bindtap="clear">
+              <image class="record-img" src="/images/trash.png"></image>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <button class="button-send" disabled="{{!buttonEnable}}" bindtap="onSendData" type="primary">立即反馈</button>
+  </view>
+  <template is="foot" />
+</view>

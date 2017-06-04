@@ -21,7 +21,7 @@
 /**mine.wxss**/
 
 .header {
-  height: 350rpx;
+  height: 435rpx;
   background: white;
 }
 
@@ -30,27 +30,7 @@
   flex-direction: column;
   justify-content:space-between;
   align-items: center;
-  margin-top: 25rpx;
-}
-
-.profile .avatar {
-  width: 50px;
-  height: 50px;
-  float: left;
-  margin: 7.5px 10px;
-  border-radius: 25px;
-}
-
-.profile .description {
-  display: inline-block;
-  margin: 7.5px auto;
-  height: 50px;
-}
-
-.description .item {
-  height: 50%;
-  display: flex;
-  align-items: center;
+  margin-top: 15rpx;
 }
 
 .profile .add {
@@ -58,17 +38,17 @@
 }
 
 .header .tablist {
-  height: 50%;
+  /*height: 40%;*/
   display: flex;
   justify-content: space-between;
   align-items: center;
-  clear: both;
+  /*margin-bottom: 40rpx;*/
 }
 
 .header .divider-horizen {
-  display: flex;
+  /*display: flex;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-top: 15px;*/
   width: 100%;
   border-top: 1px solid #dcdcdc;
 }
@@ -80,7 +60,6 @@
   height: 50px;
   width: 25%;
   margin: 7.5px 0px;
-  /*border-right: 1px solid #eceff4;*/
 }
 
 .tab .content {
