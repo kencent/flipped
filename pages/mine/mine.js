@@ -1,5 +1,6 @@
 var util = require('../../utils/util')
 var users = require('../../config').users
+var myFlippedwords = require('../../config').myFlippedwords
 // Page({
 //   data: {
 //     text: "Page mine"
@@ -87,6 +88,32 @@ Page({
   onShow: function () {
    
   },
+
+  loadData : function(id){
+    util.getRequestWithRefreshToken(myFlippedwords, "pages/mine/mine").then(
+      res => {
+        
+        if (res.statusCode != 200) {
+          return
+        }
+        wx.stopPullDownRefresh();
+        
+        this.setData({
+          flippedwords: util.dealData(res.data.flippedwords)
+        })
+      }
+    )
+  },
+
+  gotoDetail: function (event) {
+    wx.navigateTo({
+      url: '/pages/detail/detail?data=' + event.currentTarget.dataset.flippedword
+    })
+  },
+  
+  onPullDownRefresh : function(){
+    this.loadData(0)
+  },
   onLoad: function () {
     var that = this
     app.getUserInfo(function (userInfo) {
@@ -97,19 +124,7 @@ Page({
       })
     })
     // 页面初始化 options为页面跳转所带来的参数
-    util.getRequestWithRefreshToken(users + "/1323131", "pages/mine/mine").then(
-      res => {
-        if (res.statusCode == 200) {
-          wx.showModal({
-            title: '请求成功',
-            content: res.data,
-            showCancel: false
-          })
-        } else {
-
-        }
-      }
-    )
+    this.loadData(0)
     this.getLocation()
   },
 

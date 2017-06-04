@@ -7,18 +7,16 @@ Page({
   onPullDownRefresh: function () {
     util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
       res => {
-        wx.stopPullDownRefresh();
-
         
         if(res.statusCode == 200){
           wx.showToast({
             title: '数据已到最新',
           })
 
-         
-          
+          wx.stopPullDownRefresh();
+  
           this.setData({
-            flippedwords: this.dealData(res.data.flippedwords)
+            flippedwords: util.dealData(res.data.flippedwords)
           })
         }
       }
@@ -41,7 +39,7 @@ Page({
 
         
         this.setData({
-          flippedwords: this.dealData(res.data.flippedwords)
+          flippedwords: util.dealData(res.data.flippedwords)
         })
       }
     )
@@ -57,45 +55,6 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
-  },
-  dealData: function (flippedwords){
-    for (var i = 0; i < flippedwords.length; i++) {
-      var flippedword = flippedwords[i];
-      var contentStr = flippedword.contents;
-      var contents = JSON.parse(contentStr);
-      var title = '';
-      var hasPic = false;
-      var hasVideo = false;
-      var hasAudio = false;
-      for(var j=0; j<contents.length; j++){
-        var content = contents[j];
-        if(content.type == 'text'){
-          title = content.text;
-        }else if(content.type == 'picture'){
-          hasPic = true;
-        }else if(content.type == 'video'){
-          hasVideo = true;
-        }else if(content.type == 'audio'){
-          hasAudio = true;
-        }
-      }
-      var orginTitle = title;
-      if(hasAudio){
-        title = '[音频]'+title;
-      }
-      if(hasVideo){
-        title = '[视频]'+title;
-      }
-      if(hasPic){
-        title = '[图片]'+title;
-      }
-      flippedword.orginTitle = orginTitle; 
-      flippedword.title = title;
-      flippedword.contents = contents;
-      flippedword.jsonStr = JSON.stringify(flippedword);
-
-    }
-    return flippedwords;
   },
   gotoDetail:function(event){
     wx.navigateTo({

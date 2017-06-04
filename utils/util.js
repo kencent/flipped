@@ -374,6 +374,49 @@ function getStorage(key){
   })
 }
 
+/**
+ * 处理表白数据
+ */
+function dealData(flippedwords) {
+  for (var i = 0; i < flippedwords.length; i++) {
+    var flippedword = flippedwords[i];
+    var contentStr = flippedword.contents;
+    var contents = JSON.parse(contentStr);
+    var title = '';
+    var hasPic = false;
+    var hasVideo = false;
+    var hasAudio = false;
+    for (var j = 0; j < contents.length; j++) {
+      var content = contents[j];
+      if (content.type == 'text') {
+        title = content.text;
+      } else if (content.type == 'picture') {
+        hasPic = true;
+      } else if (content.type == 'video') {
+        hasVideo = true;
+      } else if (content.type == 'audio') {
+        hasAudio = true;
+      }
+    }
+    var orginTitle = title;
+    if (hasAudio) {
+      title = '[音频]' + title;
+    }
+    if (hasVideo) {
+      title = '[视频]' + title;
+    }
+    if (hasPic) {
+      title = '[图片]' + title;
+    }
+    flippedword.orginTitle = orginTitle;
+    flippedword.title = title;
+    flippedword.contents = contents;
+    flippedword.jsonStr = JSON.stringify(flippedword);
+
+  }
+  return flippedwords;
+}
+
 module.exports = {
   formatDate: formatDate,
   formatTime: formatTime,
@@ -387,5 +430,6 @@ module.exports = {
   chooseImage: chooseImage,
   uploadFile:uploadFile,
   chooseVideo: chooseVideo,
-  getStorage: getStorage
+  getStorage: getStorage,
+  dealData: dealData
 }

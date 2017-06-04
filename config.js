@@ -20,6 +20,9 @@ var config = {
   //用户请求 
   users: `https://${host}/users`,
 
+  //查询发给我的flippedwords
+  myFlippedwords: `https://${host}/my_flippedwords`,
+
   signUlr: `https://${host}/youtusig`,
 
   //上传文件请求
