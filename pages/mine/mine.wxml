@@ -43,7 +43,8 @@
         <!--<view class="item">{{userInfo.city}}</view>-->
       <!--</view>-->
       <!--<image class="add" mode="aspectFill" src="../../images/icons/add.png" bindtap="touchAdd"></image>-->
-      <button class="add " type="primary" bindtap="touchAdd">说句悄悄话</button>
+      <button class="add" type="primary" bindtap="touchAdd">说句悄悄话</button>
+      <button class="add" type="default" plain="true" bindtap="feedback">给我们反馈</button>
       <view class="divider-horizen"></view>
     </view>
     <view class="tablist">

@@ -1,5 +1,5 @@
 var util = require('../../utils/util')
-const postflippedwords = require('../../config').postflippedwords
+const feedbackUrl = require('../../config').feedbackUrl
 const uploadFileUrl = require('../../config').uploadFileUrl
 const signUlr = require('../../config').signUlr
 // new.js
@@ -15,7 +15,7 @@ Page({
    */
   data: {
     hasLocation: false,
-    phone: "",
+    // phone: "",
     text: "",
     image: "",
     video: "",
@@ -55,18 +55,18 @@ Page({
   },
   onSendData: function () {
     wx.showToast({
-      title: '发送中》。',
+      title: '反馈中。。',
       icon: 'loading'
     })
-    if (!(/\d{11}/.test(this.data.phone))){
-      wx.showToast({
-        title: '请输入正确的手机号',
-      })
-      return
-    }
+    // if (!(/\d{11}/.test(this.data.phone))){
+    //   wx.showToast({
+    //     title: '请输入正确的手机号',
+    //   })
+    //   return
+    // }
     if(!this.data.text || this.data.text == ""){
       wx.showToast({
-        title: '请输入你想对他说的话',
+        title: '请输入你想对我们说的话',
       })
       return
     }
@@ -75,7 +75,7 @@ Page({
       buttonEnable: false
     })
     let data = {}
-    data.sendto = this.data.phone
+    // data.sendto = this.data.phone
     data.contents = []
     let textContent = {}
     textContent.type = "text"
@@ -105,14 +105,14 @@ Page({
 
     data.lat = parseFloat(this.data.location.lat)
     data.lng = parseFloat(this.data.location.lng)
-    util.postRequestWithRereshToken(postflippedwords, data).then(
+    util.postRequestWithRereshToken(feedbackUrl, data).then(
       res => {
         console.log(res)
-        if (res.statusCode < 300 && res.data.id) {
+        if (res.statusCode < 300) {
           wx.hideToast()
           wx.showModal({
-            title: '发送成功',
-            content: '快去看看吧~',
+            title: '反馈成功',
+            content: '感谢您的反馈，开发哥哥正在火速出率，稍后我们会尽快回复~',
             showCancel: false,
             complete: function (res) { 
               wx.reLaunch({
@@ -124,7 +124,7 @@ Page({
           if (res.data && res.data.err){
             wx.hideToast()
             wx.showModal({
-              title: '发送失败',
+              title: '反馈失败，+——+',
               showCancel:false,
               content: res.data.err,
               success:function(res){
@@ -138,12 +138,10 @@ Page({
       }
     ).catch(function (res) {
       wx.showToast({
-        title: '发布失败',
+        title: '反馈失败',
         icon: 'loading'
       })
     }).finally(res => {
-      
-      
       that.setData({
         buttonEnable: true
       })

@@ -5,7 +5,8 @@
     "pages/logs/logs",
     "pages/login/login",
     "pages/post/post",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "dark",
