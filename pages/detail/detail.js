@@ -113,6 +113,13 @@ Page({
             }
           })
         }
+
+        var duration = content.duration
+        setTimeout(function(){
+          that.setData({
+            animateStatus: 'stopanimate'
+          })
+        }, duration*1000)
       }
     }
   }
