@@ -5,25 +5,50 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
   },
-
+  audioError:function(e){
+    console.log(e)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.audioCtx = wx.createAudioContext('myAudio')
     var data = options.data;
     var flippedword = JSON.parse(data);
+    var i = 0
+    var that = this
+    for (i; i < flippedword.contents.length;i++){
+      var content = flippedword.contents[i]
+      if (content.type == 'audio'){
+        let j = i
+        flippedword.contents[j].text = flippedword.contents[j].text.replace(/http/, "https")
+        wx.downloadFile({
+          url: flippedword.contents[j].text, 
+          success: function (res) {
+            wx.playVoice({
+              filePath: res.tempFilePath
+            })
+            
+            flippedword.contents[j].text = res.tempFilePath
+            that.setData({
+              flippedword: flippedword
+            })
+          }
+        })
+      }
+    }
     this.setData({
       flippedword: flippedword
     })
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**

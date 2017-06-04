@@ -310,7 +310,7 @@ Page({
         util.getRequestWithRefreshToken(signUlr, 'page/post/post').then(
           res => {
             var userKey = wx.getStorageSync("username");
-            var fileName = userKey + new Date().getTime() +"mp3"
+            var fileName = userKey + new Date().getTime() +".silk"
             var sign = res.data.sig
             return util.uploadFile(sign, that.data.tempFilePath, fileName)
           }
