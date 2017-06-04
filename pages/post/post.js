@@ -99,7 +99,7 @@ Page({
       let audioContent = {}
       audioContent.type = "audio"
       audioContent.text = this.data.audio
-      audioContent.duration = 30//这个字段别用
+      audioContent.duration = this.data.recordTime//这个字段别用
       data.contents.push(audioContent)
     }
 
@@ -108,24 +108,32 @@ Page({
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
-        if (res.data.id) {
+        if (res.statusCode < 300 && res.data.id) {
+          wx.hideToast()
           wx.showModal({
             title: '发送成功',
-            content: '返回id是 【' + res.data.id + '】',
-            showCancel: false
+            content: '快去看看吧~',
+            showCancel: false,
+            complete: function (res) { 
+              wx.reLaunch({
+                url: '/pages/mine/mine',
+              })
+            }
           })
         } else {
-          if (res.data.err){
+          if (res.data && res.data.err){
+            wx.hideToast()
             wx.showModal({
               title: '发送失败',
+              showCancel:false,
               content: res.data.err,
-            })
-          }else{
-            wx.showToast({
-              title: '发送失败，请重试',
+              success:function(res){
+                  wx.reLaunch({
+                    url: '/pages/mine/mine',
+                  })
+              }
             })
           }
-          
         }
       }
     ).catch(function (res) {

@@ -292,6 +292,8 @@ function getRequestWithRefreshToken(url, page) {
           url: '../../pages/login/login',
         })
       })
+    }else{
+      return Promise.resolve(res)
     }
   }).catch(function (res) {
     console.log(res)
@@ -343,6 +345,8 @@ function postRequestWithRereshToken(url, data) {
           url: '../../pages/login/login',
         })
       })
+    }else{
+      return Promise.resolve(res)
     }
   }).catch(function (res) {
     console.log(res)
@@ -371,6 +375,25 @@ function getStorage(key){
   var request = wxPromisify(wx.getStorage);
   return request({
     key:key
+  })
+}
+/**
+ * 保存文件
+ */
+function saveFile(fileUrl){
+  var request = wxPromisify(wx.saveFile)
+  return request({
+    tempFilePath:fileUrl
+  })
+}
+
+/**
+ * 保存图片文件到相册，没实现
+ */
+function saveImageToPhotosAlbum(fileUrl){
+  var request = wxPromisify(wx.saveImageToPhotosAlbum);
+  return request({
+    filePath:fileUrl
   })
 }
 
