@@ -21,7 +21,7 @@
         <view class="red_text">*</view> )</view>
       <view class="page-body-info">
         <view class="textarea-wrp">
-          <textarea bindinput="onTextInput" placeholder="请输入你想对他说的话" />
+          <textarea bindinput="onTextInput" placeholder="请输入你想对Ta说的话" />
         </view>
       </view>
     </view>
