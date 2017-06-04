@@ -66,5 +66,12 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  imagePreview : function(event){
+    var url = event.currentTarget.dataset.url
+    wx.previewImage({
+      urls : [url]
+    })
   }
 })
