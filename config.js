@@ -17,6 +17,8 @@ var config = {
   //广场请求
   squreUrl: `https://${host}/nearby_flippedwords`,
 
+  detailUrl: `https://${host}/flippedwords`,
+
   //用户请求 
   users: `https://${host}/users`,
 

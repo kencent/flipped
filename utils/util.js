@@ -442,7 +442,6 @@ function dealData(flippedwords) {
       distanceStr = '距离:' + distanceStr + 'km';
     }
     flippedword.distanceStr = distanceStr
-    flippedword.jsonStr = JSON.stringify(flippedword)
   }
   return flippedwords;
 }

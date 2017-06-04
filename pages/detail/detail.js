@@ -1,5 +1,6 @@
 // detail.js
-var g_flippedword;
+var util = require('../../utils/util')
+var detailUrl = require('../../config').detailUrl
 
 Page({
 
@@ -16,13 +17,29 @@ Page({
    */
   onLoad: function (options) {
     this.audioCtx = wx.createAudioContext('myAudio')
-    var data = options.data;
-    var flippedword = JSON.parse(data);
-    g_flippedword = flippedword
-    this.setData({
-      flippedword: flippedword,
-      animateStatus: 'stopanimate'
+
+    var id = options.id
+    util.getRequestWithRefreshToken(detailUrl+'/'+id, "pages/detail/detail").then(
+      res => {
+
+        if (res.statusCode == 200) {
+
+
+          wx.stopPullDownRefresh();
+          var flippedwords = util.dealData([res.data])
+          var flippedword = flippedwords[0]
+          this.setData({
+            flippedword: flippedword,
+            animateStatus: 'stopanimate'
+          })
+        }
+      }
+    ).catch(function (res) {
+      console.log(res);
+      wx.stopPullDownRefresh();
     })
+
+    
 
   },
 
@@ -87,7 +104,7 @@ Page({
       animateStatus: ''
     })
 
-    var flippedword = g_flippedword
+    var flippedword = this.data.flippedword
 
     var i = 0
     var that = this

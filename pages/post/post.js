@@ -142,12 +142,7 @@ Page({
         icon: 'loading'
       })
     }).finally(res => {
-      if(!res){
-        wx.showToast({
-          title: '系统出了点小问题',
-          icon: 'loading'
-        })
-      }
+      
       
       that.setData({
         buttonEnable: true
