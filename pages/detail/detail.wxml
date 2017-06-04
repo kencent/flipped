@@ -14,7 +14,12 @@
           <video style="width: 250px; height: 200px; background-color: #eeeeee;" src="{{content.text}}" ></video>
         </block>
         <block wx:elif="{{content.type == 'audio'}}">
-          <audio id="myAudio"  binderror="audioError" style="width: 250px; background-color: #eeeeee;" controls="true" name="音频" author="一个暗恋的人" src="{{content.text}}" ></audio>
+          <!--<audio id="myAudio"  binderror="audioError" style="width: 250px; background-color: #eeeeee;" controls="true" name="音频" author="一个暗恋的人" src="{{content.text}}" ></audio>-->
+          <view class="cricleplay" style="width: 250px; background-color: #eeeeee;" bindtap="play">
+            <view class="small"></view>
+            <view class="middle {{animateStatus}}"></view>
+            <view class="large {{animateStatus}}"></view>
+          </view>
         </block>
       </block>
         <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>

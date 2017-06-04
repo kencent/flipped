@@ -1,1 +1,71 @@
 /* detail.wxss */
+.small{
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block;
+  color:#A2A2A2;
+}
+
+.middle{
+  width: 30px;
+  height: 30px;
+  border-style: solid;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: -22px;
+  animation: show2 3s ease-in-out infinite;
+  opacity: 1;
+  color:#A2A2A2;
+}
+@keyframes show2 {
+  0% { opacity: 0;}
+  30% { opacity: 1;}
+  100% { opacity: 0;}
+}
+.cricleplay{
+	width: 100%;
+  border-style: solid;
+  border-color: transparent;
+  background-color: #eeeeee;
+
+}
+.large{
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: -32px;
+  animation: show3 3s ease-in-out infinite;
+  opacity: 1;
+  color:#A2A2A2;
+}
+@keyframes show3 {
+  0% { opacity: 0;}
+  60% { opacity: 1;}
+  100% { opacity: 0;}
+}
+
+.stopanimate{
+		-moz-animation-name: none;
+	-webkit-animation-name: none;
+	-ms-animation-name: none;
+		animation-name: none;	
+}
