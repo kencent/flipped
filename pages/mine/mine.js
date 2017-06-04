@@ -73,18 +73,7 @@ Page({
     userInfo: {},
   },
 
-  getLocation: function getLocation() {
-    var that = this
-    wx.getLocation({
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          hasLocation: true,
-          location: util.formatLocation(res.longitude, res.latitude)
-        })
-      }
-    })
-  },
+  
   onShow: function () {
    
   },
@@ -125,7 +114,6 @@ Page({
     })
     // 页面初始化 options为页面跳转所带来的参数
     this.loadData(0)
-    this.getLocation()
   },
 
   // 点击tab项事件

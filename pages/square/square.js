@@ -5,44 +5,13 @@ Page({
     text:"Page square"
   },
   onPullDownRefresh: function () {
-    util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
-      res => {
-        
-        if(res.statusCode == 200){
-          wx.showToast({
-            title: '数据已到最新',
-          })
-
-          wx.stopPullDownRefresh();
-  
-          this.setData({
-            flippedwords: util.dealData(res.data.flippedwords)
-          })
-        }
-      }
-    ).catch(function(res){
-      console.log(res);
-      wx.stopPullDownRefresh();
-    })
+    this.loadData()
     
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    util.getRequestWithRefreshToken(squreUrl, "pages/squre/squre").then(
-      res => {
-        // wx.showModal({
-        //   title: '请求成功',
-        //   content: res.data,
-        //   showCancel: false
-        // })
-
-
-        
-        this.setData({
-          flippedwords: util.dealData(res.data.flippedwords)
-        })
-      }
-    )
+    this.getLocation()
+    this.loadData()
   },
   onReady:function(){
     // 页面渲染完成
@@ -60,5 +29,41 @@ Page({
     wx.navigateTo({
       url: '/pages/detail/detail?data=' + event.currentTarget.dataset.flippedword
     })
-  }
+  },
+  loadData : function(){
+    var requestUrl = squreUrl;
+    if (this.data.hasLocation && this.data.location.lat && this.data.location.lng){
+      requestUrl += '?lat=' + this.data.location.lat + '&lng=' + this.data.location.lng
+    }
+
+    util.getRequestWithRefreshToken(requestUrl, "pages/squre/squre").then(
+      res => {
+
+        if (res.statusCode == 200) {
+         
+
+          wx.stopPullDownRefresh();
+
+          this.setData({
+            flippedwords: util.dealData(res.data.flippedwords)
+          })
+        }
+      }
+    ).catch(function (res) {
+      console.log(res);
+      wx.stopPullDownRefresh();
+    })
+  },
+  getLocation: function getLocation() {
+    var that = this
+    wx.getLocation({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          hasLocation: true,
+          location: util.formatLocation(res.longitude, res.latitude)
+        })
+      }
+    })
+  },
 })
