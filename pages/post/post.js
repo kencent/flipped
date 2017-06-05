@@ -239,7 +239,7 @@ Page({
       } else {
         sign = res.data
       }
-      return util.uploadFile(sign, that.data.filePath, fileName)
+      return util.uploadImage(sign, that.data.filePath, fileName)
     }).catch(res => {
       //上传失败
       console.log(res)
@@ -288,7 +288,7 @@ Page({
       } else {
         sign = res.data
       }
-      return util.uploadFile(sign, that.data.filePath, fileName)
+      return util.uploadVideo(sign, that.data.filePath, fileName)
     }).catch(res => {
       //签名获取失败了
       console.log(res)

@@ -3,6 +3,8 @@
  */
 
 var host = "flippedwords.com"
+var appid = 1251789367
+var buket = "flipped"
 
 var config = {
 
@@ -30,7 +32,13 @@ var config = {
   signUlr: `https://${host}/youtusig`,
 
   //上传文件请求
-  uploadFileUrl: `https://gz.file.myqcloud.com/files/v2/1251789367/flipped/test`,
+  uploadFileUrl: `https://gz.file.myqcloud.com/files/v2/${appid}/${buket}/files`,
+
+  //图片上传请求,实际上用的也是文件上传接口https://qcloud.com/document/api/436/6066
+  uploadImageUrl: `https://gz.file.myqcloud.com/files/v2/${appid}/${buket}/images`,
+  // 微视频 https://www.qcloud.com/document/product/314/3498
+  uploadVideoUrl: `https://web.video.myqcloud.com/files/v1/${appid}/${buket}/videos`,
+
 
   //发送心态请求
   postflippedwords: `https://${host}/flippedwords`,

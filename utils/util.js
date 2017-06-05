@@ -4,6 +4,8 @@ var app = getApp()
 const srpB = require('../config').srpB
 const srpM2 = require('../config').srpM2
 const uploadFileUrl = require('../config').uploadFileUrl
+const uploadImageUrl  = require('../config').uploadImageUrl
+const uploadVideoUrl = require('../config').uploadVideoUrl
 function formatDate(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -109,6 +111,47 @@ function uploadFile(signature, filePath, fileName){
   })
 }
 /**
+ * 微信图片文件promis封装
+ * signature:服务器获取的签名
+ * filePath：文件的路径
+ * fileName:文件命名
+ */
+function uploadImage(signature, filePath, fileName) {
+  var request = wxPromisify(wx.uploadFile)
+  return request({
+    url: uploadImageUrl + '/' + fileName,
+    filePath: filePath,
+    header: {
+      'Authorization': signature
+    },
+    name: 'filecontent',
+    formData: {
+      op: 'upload'
+    },
+  })
+}
+
+/**
+ * 微信视频文件promis封装
+ * signature:服务器获取的签名
+ * filePath：文件的路径
+ * fileName:文件命名
+ */
+function uploadVideo(signature, filePath, fileName) {
+  var request = wxPromisify(wx.uploadFile)
+  return request({
+    url: uploadVideoUrl + '/' + fileName,
+    filePath: filePath,
+    header: {
+      'Authorization': signature
+    },
+    name: 'filecontent',
+    formData: {
+      op: 'upload'
+    },
+  })
+}
+/**
  * 微信请求get方法
  * url
  * data 以对象的格式传入
@@ -137,7 +180,7 @@ function postRequest(url, data, header) {
   })
 }
 
-function getToken() {
+function getToken(method,uri,body) {
   // 并设置到头部 Authorization: SRP {token}
   if (wx.getStorageSync('clientKey') === "") {
     return undefined
@@ -149,8 +192,17 @@ function getToken() {
   ///每次拿到toaken之后，seq++
   wx.setStorageSync('seq', seq + 1)
   console.log("seq is " + seq)
+  var ts = new Date().getTime()
+  var username = wx.getStorageSync('username')
+  var rd = sjcl.random.randomWords(1, 0)[0]
+
+  var sign = username + ts + seq + rd + method + uri + JSON.stringify(body)
+    console.log("sign = "  + sign);
+    var hmac_sha1 = new sjcl.misc.hmac(ClientKey, sjcl.hash.sha1)
+    sign = sjcl.codec.base64.fromBits(hmac_sha1.encrypt(sign))
+    console.log("sign = "  + sign); 
   //var token = {I: username, t: new Date().getTime(), q: seq, clt: {p: "wxapp", v: 10000}, r: sjcl.random.randomWords(1)[0]};
-  var token = { I: wx.getStorageSync('username'), t: new Date().getTime(), q: seq, clt: { p: "wxapp", v: 10000 }, r: sjcl.random.randomWords(1, 0)[0] };
+    var token = { I: username, t: ts, q: seq, clt: { p: "wxapp", v: 10000 }, r: rd, sign: sign };
 
   token = sjcl.codec.utf8String.toBits(JSON.stringify(token));
   // iv是前后台写死的一个固定的值 
@@ -247,7 +299,7 @@ function refreshToken(N_num_bits) {
  * page  当前是那个页，续期后重新加载
  */
 function getRequestWithRefreshToken(url, page) {
-  var token = getToken()
+  var token = getToken('GET',url,{})
   console.log("from mine page token [" + token + "]")
   var username = wx.getStorageSync('username')
   if (token == undefined) {//此时用户应该并没有登录过
@@ -301,7 +353,7 @@ function getRequestWithRefreshToken(url, page) {
 }
 
 function postRequestWithRereshToken(url, data) {
-  var token = getToken()
+  var token = getToken('POST',url,data)
   console.log("from mine page token [" + token + "]")
   var username = wx.getStorageSync('username')
   if (token == undefined) {//此时用户应该并没有登录过
@@ -458,6 +510,8 @@ module.exports = {
   formatLocation: formatLocation,
   chooseImage: chooseImage,
   uploadFile:uploadFile,
+  uploadVideo: uploadVideo,
+  uploadImage:uploadImage,
   chooseVideo: chooseVideo,
   getStorage: getStorage,
   dealData: dealData

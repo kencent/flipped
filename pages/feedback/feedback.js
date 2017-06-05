@@ -112,7 +112,7 @@ Page({
           wx.hideToast()
           wx.showModal({
             title: '反馈成功',
-            content: '感谢您的反馈，开发哥哥正在火速出率，稍后我们会尽快回复~',
+            content: '感谢您的反馈，开发哥哥正在火速处理，稍后我们会尽快回复~',
             showCancel: false,
             complete: function (res) { 
               wx.reLaunch({
