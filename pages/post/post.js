@@ -131,9 +131,9 @@ Page({
               showCancel:false,
               content: res.data.err,
               success:function(res){
-                  wx.reLaunch({
-                    url: '/pages/mine/mine',
-                  })
+                  // wx.reLaunch({
+                  //   url: '/pages/mine/mine',
+                  // })
               }
             })
           }
