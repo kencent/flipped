@@ -36,7 +36,7 @@
       </view>
     </view>
 
-    <view class="page-section">
+    <!--<view class="page-section">
       <view class="page-section-title">上传视频-更加利于我们定位问题</view>
       <view class="page-body-info">
 
@@ -55,7 +55,7 @@
         </block>
 
       </view>
-    </view>
+    </view>-->
 
     <view class="page-section">
       <view class="page-section-title">说段录音描述也行</view>

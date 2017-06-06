@@ -485,7 +485,8 @@ function dealData(flippedwords) {
   for (var i = 0; i < flippedwords.length; i++) {
     var flippedword = flippedwords[i];
     var contentStr = flippedword.contents;
-    var contents = JSON.parse(contentStr);
+    // var contents = JSON.parse(contentStr);
+    var contents = flippedword.contents;
     var title = '';
     var hasPic = false;
     var hasVideo = false;

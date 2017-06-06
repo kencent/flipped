@@ -18,8 +18,8 @@
   "tabBar": {
     "color": "#000",
     "selectedColor": "#09bb07",
-    "backgroundColor": "white",
-    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "borderStyle": "#000",
     "list": [
       {
         "text": "附近",

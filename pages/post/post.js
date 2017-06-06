@@ -111,7 +111,7 @@ Page({
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
-        if (res.statusCode < 300 && res.data.id) {
+        if (res.statusCode < 300) {
           wx.hideToast()
           wx.showModal({
             title: '发送成功',
