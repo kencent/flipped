@@ -6,6 +6,7 @@ const srpM2 = require('../config').srpM2
 const uploadFileUrl = require('../config').uploadFileUrl
 const uploadImageUrl  = require('../config').uploadImageUrl
 const uploadVideoUrl = require('../config').uploadVideoUrl
+const uploadAudioUrl = require('../config').uploadAudioUrl
 function formatDate(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -141,6 +142,27 @@ function uploadVideo(signature, filePath, fileName) {
   var request = wxPromisify(wx.uploadFile)
   return request({
     url: uploadVideoUrl + '/' + fileName,
+    filePath: filePath,
+    header: {
+      'Authorization': signature
+    },
+    name: 'filecontent',
+    formData: {
+      op: 'upload'
+    },
+  })
+}
+
+/**
+ * 微信音频文件promis封装
+ * signature:服务器获取的签名
+ * filePath：文件的路径
+ * fileName:文件命名
+ */
+function uploadAudio(signature, filePath, fileName) {
+  var request = wxPromisify(wx.uploadFile)
+  return request({
+    url: uploadAudioUrl + '/' + fileName,
     filePath: filePath,
     header: {
       'Authorization': signature
@@ -512,6 +534,7 @@ module.exports = {
   uploadFile:uploadFile,
   uploadVideo: uploadVideo,
   uploadImage:uploadImage,
+  uploadAudio: uploadAudio,
   chooseVideo: chooseVideo,
   getStorage: getStorage,
   dealData: dealData

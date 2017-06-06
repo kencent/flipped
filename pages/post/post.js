@@ -1,7 +1,10 @@
 var util = require('../../utils/util')
 const postflippedwords = require('../../config').postflippedwords
 const uploadFileUrl = require('../../config').uploadFileUrl
+const uploadImageUrl = require('../../config').uploadImageUrl
 const signUlr = require('../../config').signUlr
+const appid = require('../../config').appid
+const buket = require('../../config').buket
 // new.js
 
 //录音
@@ -217,29 +220,22 @@ Page({
   },
   chooseImage: function () {
     var that = this
+    var userKey = wx.getStorageSync("username");
+    let fileName = userKey + new Date().getTime()
     util.chooseImage(1).then(res => {
       that.setData(
         {
           filePath: res.tempFilePaths[0],
         }
       )
-
-        return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+     let imageSignUrl = signUlr + '?fileid=/' +appid+'/'+buket+'/images/'+fileName
+     return util.getRequestWithRefreshToken(imageSignUrl, 'page/post/post')
 
     }).catch(res => {
       //放弃选择
     }).then(res => {
       console.log(res)
-      var userKey = wx.getStorageSync("username");
-      var fileName = userKey + new Date().getTime()
-      var sign = ""
-      if (res.data.sig) {
-        sign = res.data.sig
-        wx.setStorageSync('signUrl', sign)
-      } else {
-        sign = res.data
-      }
-      return util.uploadImage(sign, that.data.filePath, fileName)
+      return util.uploadImage(res.data.sig, that.data.filePath, fileName)
     }).catch(res => {
       //上传失败
       console.log(res)
@@ -253,7 +249,7 @@ Page({
           duration: 1000
         })
         that.setData({
-          image: data.data.access_url
+          image: data.data.access_url.replace(/file/,'image')
         })
       } else {
         //这里出现了错误，可能是签名过期了
@@ -267,28 +263,22 @@ Page({
   },
   chooseVideo: function () {
     var that = this
+    var userKey = wx.getStorageSync("username");
+    let fileName = userKey + new Date().getTime()
     util.chooseVideo(30).then(res => {
       that.setData(
         {
           filePath: res.tempFilePath,
         }
       )
-        return util.getRequestWithRefreshToken(signUlr, 'page/post/post')
+      let videoSignUrl = signUlr + '?fileid=/' + appid + '/' + buket + '/videos/' + fileName
+      return util.getRequestWithRefreshToken(videoSignUrl, 'page/post/post')
 
     }).catch(res => {
       //放弃选择
     }).then(res => {
       console.log(res)
-      var userKey = wx.getStorageSync("username");
-      var fileName = userKey + new Date().getTime()
-      var sign = ""
-      if (res.data.sig) {
-        sign = res.data.sig
-        wx.setStorageSync('signUrl', sign)
-      } else {
-        sign = res.data
-      }
-      return util.uploadVideo(sign, that.data.filePath, fileName)
+      return util.uploadVideo(res.data.sig, that.data.filePath, fileName)
     }).catch(res => {
       //签名获取失败了
       console.log(res)
@@ -337,12 +327,13 @@ Page({
           formatedPlayTime: util.formatTime(that.data.playTime)
         })
 
-        util.getRequestWithRefreshToken(signUlr, 'page/post/post').then(
+        var userKey = wx.getStorageSync("username");
+        let fileName = userKey + new Date().getTime() + ".silk"
+        let audioSignUrl = signUlr + '?fileid=/' + appid + '/' + buket + '/audios/' + fileName
+        util.getRequestWithRefreshToken(audioSignUrl, 'page/post/post').then(
           res => {
-            var userKey = wx.getStorageSync("username");
-            var fileName = userKey + new Date().getTime() +".silk"
             var sign = res.data.sig
-            return util.uploadFile(sign, that.data.tempFilePath, fileName)
+            return util.uploadAudio(sign, that.data.tempFilePath, fileName)
           }
         ).catch(res => {
             //获取签名失败
