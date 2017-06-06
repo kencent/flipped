@@ -461,6 +461,13 @@ function saveFile(fileUrl){
   })
 }
 
+function getLocation(){
+  var request = wxPromisify(wx.getLocation)
+  return request({
+
+  })
+}
+
 /**
  * 保存图片文件到相册，没实现
  */
@@ -537,5 +544,6 @@ module.exports = {
   uploadAudio: uploadAudio,
   chooseVideo: chooseVideo,
   getStorage: getStorage,
-  dealData: dealData
+  dealData: dealData,
+  getLocation: getLocation
 }

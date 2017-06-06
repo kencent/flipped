@@ -2,7 +2,7 @@
 <import src="../common/foot.wxml" />
 
 <view class="container">
-  <template is="head" data="{{title: '新建看法'}}" />
+  <template is="head" data="{{title: '对Ta说心动的话'}}" />
 
   <view class="page-body">
     <view class="page-section">

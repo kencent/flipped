@@ -6,12 +6,34 @@ Page({
   },
   onPullDownRefresh: function () {
     this.loadData()
-    
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    this.getLocation()
-    this.loadData()
+    var that = this
+    var requestUrl = squreUrl;
+    util.getLocation().then(res=>{
+      that.setData({
+        hasLocation: true,
+        location: util.formatLocation(res.longitude, res.latitude)
+      })
+      if (that.data.hasLocation && that.data.location.lat && that.data.location.lng) {
+        requestUrl += '?lat=' + that.data.location.lat + '&lng=' + that.data.location.lng
+      }
+      return util.getRequestWithRefreshToken(requestUrl, "pages/squre/squre")
+    }).catch(res=>{
+      return util.getRequestWithRefreshToken(requestUrl, "pages/squre/squre")
+    }).then(res=>{
+      if (res.statusCode == 200) {
+        this.setData({
+          flippedwords: util.dealData(res.data.flippedwords)
+        })
+      }
+    }).catch(res=>{
+      console.log(res);
+    }).finally(res=>{
+      wx.stopPullDownRefresh();
+    })
+
   },
   onReady:function(){
     // 页面渲染完成
@@ -54,16 +76,16 @@ Page({
       wx.stopPullDownRefresh();
     })
   },
-  getLocation: function getLocation() {
-    var that = this
-    wx.getLocation({
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          hasLocation: true,
-          location: util.formatLocation(res.longitude, res.latitude)
-        })
-      }
-    })
-  },
+  // getLocation: function getLocation() {
+  //   var that = this
+  //   wx.getLocation({
+  //     success: function (res) {
+  //       console.log(res)
+  //       that.setData({
+  //         hasLocation: true,
+  //         location: util.formatLocation(res.longitude, res.latitude)
+  //       })
+  //     }
+  //   })
+  // },
 })

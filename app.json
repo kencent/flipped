@@ -11,28 +11,27 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "white",
-    "navigationBarTitleText": "心动",
+    "navigationBarTitleText": "动了个心",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "color": "white",
-    "backgroundColor": "rgba(0,0,0,0.90)",
+    "color": "#000",
+    "selectedColor": "#09bb07",
+    "backgroundColor": "white",
     "borderStyle": "black",
     "list": [
       {
-        "text": "广场",
-        "color": "rgba(255,255,255,1)",
+        "text": "附近",
         "pagePath": "pages/square/square",
         "iconPath": "images/bar_explore.png",
-        "selectedIconPath": "images/bar_explore_black.png"
+        "selectedIconPath": "images/bar_explore_selected.png"
       },
       {
         "text": "我的",
-        "color": "rgba(255,255,255,1)",
         "pagePath": "pages/mine/mine",
         "iconPath": "images/bar_mine.png",
-        "selectedIconPath": "images/bar_mine_black.png"
+        "selectedIconPath": "images/bar_mine_selected.png"
       }
     ]
   },

@@ -37,14 +37,14 @@ var myPubFlippedwords = require('../../config').myPubFlippedwords
 var iconPath = "../../images/icons/"
 var tabs = [
   {
-    "icon": iconPath + "mark.png",
-    "iconActive": iconPath + "markHL.png",
+    "icon": iconPath + "receive.png",
+    "iconActive": iconPath + "receive_selected.png",
     "title": "我收到的",
     "extraStyle": "",
   },
   {
-    "icon": iconPath + "collect.png",
-    "iconActive": iconPath + "collectHL.png",
+    "icon": iconPath + "post.png",
+    "iconActive": iconPath + "post_selected.png",
     "title": "我发送的",
     "extraStyle": "",
   },
