@@ -1,28 +1,36 @@
-<view>
-  <image class="image-login" src="../../images/loginLog.jpeg" mode="scaleToFill"></image>
-</view>
-<view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">手机号</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" confirm-type="done" type="digit" placeholder="请输入手机号"  bindinput="mobileInput"/>
-    </view>
-  </view>
-  <view class="weui-cell weui-cell_input weui-cell_vcode">
-    <view class="weui-cell__hd">
-      <view class="weui-label">验证码</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input"  confirm-type="done" value="{{password}}"  type="digit" placeholder="请输入验证码" bindinput="veryCodeInput" />
-    </view>
-    <view class="weui-cell__ft">
-      <view class="weui-vcode-btn{{disable==true ? '-disable':''}}" disabled="{{disable}}" bindtap="getVeryCode">{{veryCodeInfo}}</view>
-    </view>
-  </view>
-</view>
+<import src="../common/head.wxml" />
+<import src="../common/foot.wxml" />
 
-<view class="weui-btn-area">
-  <button class="weui-btn" type="primary" disabled="{{logindisable}}" bindtap="login">登录</button>
+
+<view class="container">
+  <template is="head" data="{{title: '登录'}}" />
+  <!--<image class="image-login" src="../../images/loginLog.jpeg" mode="scaleToFill"></image>-->
+<view class="page-body">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" confirm-type="done" type="digit" placeholder="请输入手机号" bindinput="mobileInput" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+      <view class="weui-cell__hd">
+        <view class="weui-label">验证码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" confirm-type="done" value="{{password}}" type="digit" placeholder="请输入验证码" bindinput="veryCodeInput" />
+      </view>
+      <view class="weui-cell__ft">
+        <view class="weui-vcode-btn{{disable==true ? '-disable':''}}" disabled="{{disable}}" bindtap="getVeryCode">{{veryCodeInfo}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" disabled="{{logindisable}}" bindtap="login">登录</button>
+  </view>
+  <template is="foot" />
+  </view>
 </view>

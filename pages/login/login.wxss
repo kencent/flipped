@@ -1,7 +1,7 @@
-.image-login{
+/*.image-login{
   width: 100%;
   height: 300px;
-}
+}*/
 
 .weui-vcode-btn{
   display: inline-block;
