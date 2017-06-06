@@ -39,21 +39,21 @@ var tabs = [
   {
     "icon": iconPath + "mark.png",
     "iconActive": iconPath + "markHL.png",
-    "title": "我收",
+    "title": "我收到的",
     "extraStyle": "",
   },
   {
     "icon": iconPath + "collect.png",
     "iconActive": iconPath + "collectHL.png",
-    "title": "我发",
+    "title": "我发送的",
     "extraStyle": "",
   },
-  {
-    "icon": iconPath + "like.png",
-    "iconActive": iconPath + "likeHL.png",
-    "title": "喜欢",
-    "extraStyle": "",
-  },
+  // {
+  //   "icon": iconPath + "like.png",
+  //   "iconActive": iconPath + "likeHL.png",
+  //   "title": "喜欢",
+  //   "extraStyle": "",
+  // },
 ]
 
 var app = getApp()
