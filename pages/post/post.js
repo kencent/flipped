@@ -46,7 +46,7 @@ Page({
   },
   onSendData: function () {
     wx.showToast({
-      title: '发送中》。',
+      title: '发送中..',
       icon: 'loading'
     })
     if (!(/\d{11}/.test(this.data.phone))){
@@ -94,8 +94,17 @@ Page({
       data.contents.push(audioContent)
     }
 
-    data.lat = parseFloat(this.data.location.lat)
-    data.lng = parseFloat(this.data.location.lng)
+    var lng = wx.getStorageSync('lng')
+    var lat = wx.getStorageSync('lat')
+    if (!lng) {
+      lng = 0
+    }
+    if (!lat) {
+      lat = 0
+    }
+
+    data.lat = parseFloat(lng)
+    data.lng = parseFloat(lat)
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
