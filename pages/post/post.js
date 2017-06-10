@@ -103,8 +103,8 @@ Page({
       lat = 0
     }
 
-    data.lat = parseFloat(lng)
-    data.lng = parseFloat(lat)
+    data.lng = parseFloat(lng)
+    data.lat = parseFloat(lat)
     util.postRequestWithRereshToken(postflippedwords, data).then(
       res => {
         console.log(res)
