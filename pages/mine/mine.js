@@ -99,8 +99,11 @@ Page({
         }
         wx.stopPullDownRefresh();
 
+        var flippedwordsData = {
+          receiveFlippedwords: util.dealData(res.data.flippedwords.reverse())
+        }
         this.setData({
-          flippedwords: util.dealData(res.data.flippedwords.reverse())
+          flippedwordsData: flippedwordsData
         })
       }
     )
@@ -117,8 +120,11 @@ Page({
         }
         wx.stopPullDownRefresh();
 
-        that.setData({
-          flippedwords: util.dealData(res.data.flippedwords.reverse())
+        var flippedwordsData = {
+          sendFlippedwords: util.dealData(res.data.flippedwords.reverse())
+        }
+        this.setData({
+          flippedwordsData: flippedwordsData
         })
       }
     )
@@ -163,11 +169,10 @@ Page({
 
     if (tabIndex == 0) {
       g_tab = 0;
-      this.loadMyReceiveData(0)
     } else if (tabIndex == 1) {
       g_tab = 1;
-      this.loadMySendData()
     }
+    this.loadData()
   },
 
   // 新建日记

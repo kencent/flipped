@@ -1,10 +1,10 @@
 <!--mine.wxml-->
 
 <template name="tab1">
-  <view wx:if="{{flippedwords.length == 0}}" class="empty">您还没有收到心动的话</view>
+  <view wx:if="{{flippedwordsData.receiveFlippedwords.length == 0}}" class="empty">您还没有收到心动的话</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
-      <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
+      <block wx:for="{{flippedwordsData.receiveFlippedwords}}" wx:for-item="flippedword" wx:key="*this">
         <view bindtap="gotoDetail" data-flippedword-id="{{flippedword.id}}" class="weui-media-box weui-media-box_text">
           <view class="weui-media-box__title weui-media-box__title_in-text">{{flippedword.title}}</view>
           <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
@@ -16,10 +16,10 @@
 </template>
 
 <template name="tab2">
-  <view wx:if="{{flippedwords.length == 0}}" class="empty">快对您心爱的人说一句心动话吧</view>
+  <view wx:if="{{flippedwordsData.sendFlippedwords.length == 0}}" class="empty">快对您心爱的人说一句心动话吧</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
-      <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
+      <block wx:for="{{flippedwordsData.sendFlippedwords}}" wx:for-item="flippedword" wx:key="*this">
         <view bindtap="gotoDetail" data-flippedword-id="{{flippedword.id}}" class="weui-media-box weui-media-box_text">
           <view class="weui-media-box__title weui-media-box__title_in-text">{{flippedword.title}}</view>
           <view class="weui-media-box__desc">发送给{{flippedword.sendto}}</view>
@@ -66,5 +66,5 @@
       </view>
     </view>
   </view>
-  <template is="{{currentTab}}" data="{{flippedwords}}"></template>
+  <template is="{{currentTab}}" data="{{flippedwordsData}}"></template>
 </view>
