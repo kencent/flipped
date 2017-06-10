@@ -2,6 +2,7 @@ var util = require('../../utils/util')
 var users = require('../../config').users
 var myFlippedwords = require('../../config').myFlippedwords
 var myPubFlippedwords = require('../../config').myPubFlippedwords
+var g_tab = 0 //当前选择的tab
 // Page({
 //   data: {
 //     text: "Page mine"
@@ -79,7 +80,17 @@ Page({
    
   },
 
-  loadData : function(id){
+  //加载数据
+  loadData: function () {
+    if (g_tab == 0) {
+      this.loadMyReceiveData(0)
+    } else {
+      this.loadMySendData()
+    }
+  },
+
+  //加载我收到的数据
+  loadMyReceiveData : function(id){
     util.getRequestWithRefreshToken(myFlippedwords, "pages/mine/mine").then(
       res => {
         
@@ -94,7 +105,8 @@ Page({
       }
     )
   },
-
+  
+  //加载我发出的数据
   loadMySendData : function(){
     var that = this
     util.getRequestWithRefreshToken(myPubFlippedwords, "pages/mine/mine").then(
@@ -119,9 +131,10 @@ Page({
   },
   
   onPullDownRefresh : function(){
-    this.loadData(0)
+    this.loadData()
   },
-  onLoad: function () {
+
+  onLoad: function (options) {
     var that = this
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -131,7 +144,11 @@ Page({
       })
     })
     // 页面初始化 options为页面跳转所带来的参数
-    this.loadData(0)
+
+    if(typeof options['tab'] != 'undefined'){
+      g_tab = options['tab'];
+    }
+    this.loadData()
   },
 
   // 点击tab项事件
@@ -145,8 +162,10 @@ Page({
     })
 
     if (tabIndex == 0) {
-      this.loadData(0)
+      g_tab = 0;
+      this.loadMyReceiveData(0)
     } else if (tabIndex == 1) {
+      g_tab = 1;
       this.loadMySendData()
     }
   },
