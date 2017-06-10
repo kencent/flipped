@@ -95,7 +95,7 @@ Page({
           disable: false
         })
       }).finally(function (res) {
-        wx.hideToast()
+        ///wx.hideToast()
         console.log(res)
       })
   },
@@ -103,18 +103,22 @@ Page({
   login: function () {
     wx.showToast({
       title: '登录中..',
+      icon:'loading',
+      duration:10000
     })
     if (this.data.logindisable){
       return
     }
     var that = this
     if (this.data.phone.length == 0 || this.data.password.length == 0) {
+      wx.hideToast()
       wx.showToast({
         title: '用户名和验证码不能为空',
         icon: 'loading',
         duration: 2000
       })
     } else if (this.data.salt.length == 0) {
+      wx.hideToast()
       wx.showToast({
         title: '请获取验证码',
         icon: 'loading',
@@ -159,6 +163,7 @@ Page({
 
             }
           } else {//获取srpB失败
+            wx.hideToast()
             wx.showToast({
               title: res.data.err,
               icon: 'loading',
@@ -190,17 +195,20 @@ Page({
               // 每次请求用ClientKey加密(username, + local millisecond + seq + client(platform + version) + random)得到token
               // util.getToken()
               //登录成功跳转到主页
+              wx.hideToast()
               wx.switchTab({
                 url: '../square/square',
               })
             }
           } else if (res.statusCode == 422) {//验证码输入错误
+            wx.hideToast()
             wx.showToast({
               title: '验证码输入错误',
               icon: 'loading',
               duration: 1500
             })
           } else if (res.statusCode == 429) {//验证码输入错误次数达到三次，
+            wx.hideToast()
             wx.showToast({
               title: '验证码输错次数超过3次，请重新获取验证码',
               icon: 'loading',
@@ -215,7 +223,7 @@ Page({
           that.setData({
             logindisable: false
           })
-          wx.hideToast()
+          //wx.hideToast()
         }
         )
     }

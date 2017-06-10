@@ -236,6 +236,10 @@ function getToken(method,uri,body) {
 }
 
 function refreshToken(N_num_bits) {
+  if (app.isCurrentRefreshToken == true){
+    return
+  }
+  app.isCurrentRefreshToken = true
   //todo  这些key值可以
   var wx_salt = wx.getStorageSync('salt')
   var phone = wx.getStorageSync('username')
@@ -264,6 +268,7 @@ function refreshToken(N_num_bits) {
         if (sjcl.bn.fromBits(B).mod(group.N).equals(0)) {
           console.log("bad server");
           // throw new Error("服务器错误");
+          // app.isCurrentRefreshToken = false
           return Promise.reject(new Error("500 bad server"))
         } else {
           // 第三步, 验证验证码, 同时验证域名是否被劫持
@@ -279,6 +284,7 @@ function refreshToken(N_num_bits) {
         }
       } else {//获取srpB失败
         //todo
+        // app.isCurrentRefreshToken = false
         return Promise.reject(new Error(res.statusCode + " 获取srpb失败"))
       }
     }).then(
@@ -290,6 +296,7 @@ function refreshToken(N_num_bits) {
         var serverM2 = res.data.M2;
         if (sjcl.codec.hex.fromBits(M2) != serverM2.toLowerCase()) {
           console.log("bad server");
+          // app.isCurrentRefreshToken = false
           return Promise.reject(new Error("500"))
         } else {
           console.log('M2拿到成功！续期成功！')
@@ -306,6 +313,7 @@ function refreshToken(N_num_bits) {
           // 每次请求用ClientKey加密(username, + local millisecond + seq + client(platform + version) + random)得到token
           // util.getToken()
           //应该是续期成功了
+          // app.isCurrentRefreshToken = false
           return Promise.resolve(200)
         }
       } else if (res.statusCode == 422) {//验证码输入错误
@@ -313,6 +321,8 @@ function refreshToken(N_num_bits) {
       } else if (res.statusCode == 429) {//验证码输入错误次数达到三次，
         return Promise.reject(new Error("429 验证码错误次数达到3次"))
       }
+    }).finally(res=>{
+      app.isCurrentRefreshToken = false
     })
 }
 
@@ -352,7 +362,7 @@ function getRequestWithRefreshToken(url, page) {
       refreshToken(N_num_bits).then(function (res) {
         console.log("refreshToken "+res);
         console.log(res)
-        if (successHttp(res.statusCode)) {//续期成功
+        if (successHttp(statusCode)) {//续期成功
           //重新打开当前页面
           wx.reLaunch({
             url: page,
