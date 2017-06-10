@@ -2,11 +2,9 @@
 <import src="../common/foot.wxml" />
 
 <view class="container">
-  <template is="head" data="{{title: '对Ta说心动的话'}}" />
-
   <view class="page-body">
     <view class="page-section">
-      <view class="weui-cells__title">Ta的手机号(
+      <view class="page-section-title" style="margin-top:10rpx">Ta的手机号(
         <view class="red_text">*</view> )</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">

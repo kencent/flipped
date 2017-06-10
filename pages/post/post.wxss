@@ -33,8 +33,8 @@ textarea {
   height: 360rpx;
 }
 .record-img{
-  width: 150rpx;
-  height: 150rpx;
+  width: 120rpx;
+  height: 120rpx;
 }
 .page-body-info {
   display: flex;
@@ -42,7 +42,7 @@ textarea {
   align-items: center;
   background-color: #fff;
   width: 100%;
-  padding: 50rpx 0 50rpx 0;
+  padding: 20rpx 0 20rpx 0;
 }
 .page-body-wrapper {
   justify-content: space-between;
@@ -56,14 +56,14 @@ textarea {
 }
 .time-big {
   font-size: 60rpx;
-  margin: 20rpx;
+  /*margin: 20rpx;*/
 }
 .time-small {
   font-size: 30rpx;
 }
 
 .page-body-buttons {
-  margin-top: 60rpx;
+  /*margin-top: 60rpx;*/
   display: flex;
   justify-content: space-around;
 }
