@@ -125,3 +125,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.empty{
+  font-size:15px;
+  text-align:center;
+  margin-top: 100rpx;
+}

@@ -1,6 +1,7 @@
 <!--mine.wxml-->
 
 <template name="tab1">
+  <view wx:if="{{flippedwords.length == 0}}" class="empty">您还没有收到心动的话</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
       <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
@@ -15,6 +16,7 @@
 </template>
 
 <template name="tab2">
+  <view wx:if="{{flippedwords.length == 0}}" class="empty">快对您心爱的人说一句心动话吧</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
       <block wx:for="{{flippedwords}}" wx:for-item="flippedword" wx:key="*this">
