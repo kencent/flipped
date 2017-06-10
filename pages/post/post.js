@@ -34,18 +34,6 @@ Page({
     formatedRecordTime: '00:00:00',
     formatedPlayTime: '00:00:00'
   },
-  getLocation: function () {
-    var that = this
-    wx.getLocation({
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          hasLocation: true,
-          location: util.formatLocation(res.longitude, res.latitude)
-        })
-      }
-    })
-  },
   onPhoneInput: function (e) {
     this.setData({
       phone: e.detail.value
@@ -157,7 +145,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getLocation()
   },
 
   /**
