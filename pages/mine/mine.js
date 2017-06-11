@@ -68,7 +68,18 @@ Page({
       flippedwordsData: flippedwordsData
     })
 
-    util.getRequestWithRefreshToken(myFlippedwords, "pages/mine/mine").then(
+    var lng = wx.getStorageSync('lng')
+    var lat = wx.getStorageSync('lat')
+    if (!lng) {
+      lng = 0
+    }
+    if (!lat) {
+      lat = 0
+    }
+
+    var requestUrl = myFlippedwords + '?lat=' + lat + '&lng=' + lng
+
+    util.getRequestWithRefreshToken(requestUrl, "pages/mine/mine").then(
       res => {
         
         if (res.statusCode != 200) {
