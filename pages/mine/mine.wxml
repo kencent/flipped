@@ -4,7 +4,7 @@
     <view class="weui-loading"></view>
     <view class="weui-loadmore__tips">正在加载</view>
   </view>
-<view wx:if="{{flippedwordsData.sendFlippedwords.length == 0}}" class="empty">快对您心爱的人说一句心动话吧</view>
+<view wx:if="{{flippedwordsData.sendFlippedwords.length == 0}}" class="empty">快对您心爱的人说一句悄悄话吧</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
       <block wx:for="{{flippedwordsData.sendFlippedwords}}" wx:for-item="flippedword" wx:key="*this">
@@ -26,7 +26,7 @@
     <view class="weui-loading"></view>
     <view class="weui-loadmore__tips">正在加载</view>
   </view>
-  <view wx:if="{{flippedwordsData.receiveFlippedwords.length == 0}}" class="empty">您还没有收到心动的话</view>
+  <view wx:if="{{flippedwordsData.receiveFlippedwords.length == 0}}" class="empty">您还没有收到悄悄话</view>
   <view class="weui-panel weui-panel_access">
     <view class="weui-panel__bd">
       <block wx:for="{{flippedwordsData.receiveFlippedwords}}" wx:for-item="flippedword" wx:key="*this">
@@ -68,7 +68,7 @@
         <!--<view class="item">{{userInfo.city}}</view>-->
       <!--</view>-->
       <!--<image class="add" mode="aspectFill" src="../../images/icons/add.png" bindtap="touchAdd"></image>-->
-      <button class="add" type="primary" bindtap="touchAdd">说句心动话</button>
+      <button class="add" type="primary" bindtap="touchAdd">说句悄悄话</button>
       <button class="add" type="default" plain="true" bindtap="feedback">给我们反馈</button>
       <view class="divider-horizen"></view>
     </view>
