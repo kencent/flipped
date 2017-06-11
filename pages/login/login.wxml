@@ -31,6 +31,10 @@
   <view class="weui-btn-area">
     <button class="weui-btn" type="primary" disabled="{{logindisable}}" bindtap="login">登录</button>
   </view>
+
+  <view class="page-section">
+      <view class="page-section-title" style="margin-top:10rpx;"><view bindtap="gotoHelp" class="help">《使用帮助》</view></view>
+    </view>
   <template is="foot" />
   </view>
 </view>

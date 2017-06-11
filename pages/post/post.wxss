@@ -79,3 +79,8 @@ textarea {
   border-radius: 130rpx;
   margin: 0 auto;
 }
+
+.help {
+  display:inline-flex;
+  color:#1a0dab;
+}

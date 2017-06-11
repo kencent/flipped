@@ -227,5 +227,12 @@ Page({
         }
         )
     }
+  },
+
+  //去帮助页面
+  gotoHelp: function () {
+    wx.navigateTo({
+      url: '/pages/help/help',
+    })
   }
 }) 

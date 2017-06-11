@@ -28,3 +28,10 @@
   color: #E5E7EC;
   white-space: nowrap;
 }
+
+.help {
+  margin-top: 100rpx;
+  color:#1a0dab;
+  text-align:center;
+  font-size: 32rpx
+}

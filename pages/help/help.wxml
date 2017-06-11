@@ -1,2 +1,23 @@
-<!--help.wxml-->
-<text>help.wxml</text>
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-article">
+            <view class="weui-article__h1" style="text-align:center">《动了个心》小程序使用帮助</view>
+            <view class="weui-article__section">
+                <view class="weui-article__section">
+                    <view class="weui-article__p">
+                        1. 你可以把你心动的话发给TA而不用担心被TA知道
+                    </view>
+                    <view class="weui-article__p">
+                        2. 你可以把你心动的话发给TA而不用担心被TA知道
+                    </view>
+                    <view class="weui-article__p">
+                        3. 若你收到了别人的话，你可以通过查看详情来让对方知道你已经收到了
+                    </view>
+                    <view class="weui-article__p">
+                        4、若对方未注册，会短信通知对方，且仅会通知一次，先到先得，抓紧机会。
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

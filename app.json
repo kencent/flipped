@@ -3,11 +3,12 @@
     "pages/square/square",
     "pages/mine/mine",
     "pages/logs/logs",
-    "pages/login/login",
+    "pages/login/login",        
     "pages/post/post",
     "pages/detail/detail",
     "pages/feedback/feedback",
     "pages/help/help"
+        
   ],
   "window": {
     "backgroundTextStyle": "dark",
