@@ -535,7 +535,7 @@ function dealData(flippedwords) {
     } else if (flippedword.distance > 0){
       distanceStr = parseFloat(flippedword.distance)
       distanceStr = '距离：' + distanceStr + 'm';
-    }else{
+    } else if (flippedword.distance == 0){
       distanceStr = '距离：就在您身边'
     }
     flippedword.distanceStr = distanceStr
