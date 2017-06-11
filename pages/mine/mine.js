@@ -113,10 +113,8 @@ Page({
         for (var i = 0; i < flippedwordsData.sendFlippedwords.length; i++){
           var flippedword = flippedwordsData.sendFlippedwords[i]
           var statusStr = '';
-          if (flippedword.status == 0){
-            statusStr = '新发表'
-          } else if (flippedword.status == 100){
-            statusStr = '已发送'
+          if (flippedword.status == 0 || flippedword.status == 100){
+            statusStr = '对方未读'
           } else if (flippedword.status == 200){
             statusStr = '对方已读'
           }
