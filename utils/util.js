@@ -528,10 +528,15 @@ function dealData(flippedwords) {
     flippedword.contents = contents;
 
     var distanceStr = '';
-    if (flippedword.distance > 0){
+    if (flippedword.distance >= 1000){
       distanceStr = parseFloat(flippedword.distance/1000.0)
       distanceStr = distanceStr.toFixed(2)
       distanceStr = '距离：'+distanceStr + 'km';
+    } else if (flippedword.distance > 0){
+      distanceStr = parseFloat(flippedword.distance)
+      distanceStr = '距离：' + distanceStr + 'm';
+    }else{
+      distanceStr = '距离：就在你身边'
     }
     flippedword.distanceStr = distanceStr
   }
