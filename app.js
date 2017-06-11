@@ -31,5 +31,6 @@ App({
     },
     globalData: {
       userInfo: null
-    }
+    },
+    isCurrentRefreshToken:false//当前是否在刷新token
   });
