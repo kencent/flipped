@@ -536,7 +536,7 @@ function dealData(flippedwords) {
       distanceStr = parseFloat(flippedword.distance)
       distanceStr = '距离：' + distanceStr + 'm';
     }else{
-      distanceStr = '距离：就在你身边'
+      distanceStr = '距离：就在您身边'
     }
     flippedword.distanceStr = distanceStr
   }
