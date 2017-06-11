@@ -1,4 +1,7 @@
 // help.js
+var util = require('../../utils/util')
+var helpUrl = require('../../config').helpUrl
+
 Page({
 
   /**
@@ -12,7 +15,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    util.getRequestWithRefreshToken(helpUrl, "pages/help/help").then(res => {
+      if (res.statusCode == 200) {
+        this.setData({
+          contents: res.data.contents
+        })
+      }
+    }).catch(res => {
+      console.log(res);
+    }).finally(res => {
+    })
   },
 
   /**
@@ -47,7 +59,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
   },
 
   /**
@@ -62,5 +73,7 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  
 })

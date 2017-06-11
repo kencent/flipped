@@ -49,7 +49,10 @@ var config = {
   postflippedwords: `https://${host}/flippedwords`,
 
   //反馈
-  feedbackUrl:`https://${host}/feedbacks`
+  feedbackUrl:`https://${host}/feedbacks`,
+
+  //帮助
+  helpUrl: `https://${host}/help`,
 };
 
 module.exports = config

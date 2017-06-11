@@ -4,14 +4,8 @@
             <view class="weui-article__h1" style="text-align:center">《动了个心》小程序使用帮助</view>
             <view class="weui-article__section">
                 <view class="weui-article__section">
-                    <view class="weui-article__p">
-                        1. 在这里您可以把您心动的话发给TA而不用担心被TA知道您是谁
-                    </view>
-                    <view class="weui-article__p">
-                        2. 在您发表心动的话后，平台会帮您匿名通知到TA，每天只会通知一次
-                    </view>
-                    <view class="weui-article__p">
-                        3. 在TA收到您说的话前，您说的内容将在“附近”板块中匿名被大家看到
+                    <view wx:for="{{contents}}" wx:for-item="content" class="weui-article__p">
+                      {{content.text}}
                     </view>
                 </view>
             </view>
