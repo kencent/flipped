@@ -123,6 +123,20 @@ Page({
         var flippedwordsData = {
           sendFlippedwords: util.dealData(res.data.flippedwords)
         }
+
+        for (var i = 0; i < flippedwordsData.sendFlippedwords.length; i++){
+          var flippedword = flippedwordsData.sendFlippedwords[i]
+          var statusStr = '';
+          if (flippedword.status == 0){
+            statusStr = '新发表'
+          } else if (flippedword.status == 100){
+            statusStr = '已发送'
+          } else if (flippedword.status == 200){
+            statusStr = '对方已读'
+          }
+          flippedword.statusStr = statusStr
+        }
+
         this.setData({
           flippedwordsData: flippedwordsData
         })

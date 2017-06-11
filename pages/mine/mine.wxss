@@ -131,3 +131,13 @@
   text-align:center;
   margin-top: 100rpx;
 }
+
+.weui-media-box__info {
+  margin-top: 15px;
+  padding-bottom: 5px;
+  font-size: 13px;
+  color: #999999;
+  line-height: 1em;
+  list-style: none;
+  overflow: hidden;
+}
