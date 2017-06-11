@@ -3,50 +3,20 @@ var users = require('../../config').users
 var myFlippedwords = require('../../config').myFlippedwords
 var myPubFlippedwords = require('../../config').myPubFlippedwords
 var g_tab = 0 //当前选择的tab
-// Page({
-//   data: {
-//     text: "Page mine"
-//   },
-//   onLoad: function (options) {
-//     // 页面初始化 options为页面跳转所带来的参数
-//     util.getRequestWithRefreshToken(users + "/1323131", "pages/mine/mine").then(
-//       res => {
-//         wx.showModal({
-//           title: '请求成功',
-//           content: res.data,
-//           showCancel: false
-//         })
-//       }
-//     )
-//   },
-//   onReady: function () {
-//     // 页面渲染完成
-//   },
-//   onShow: function () {
-//     // 页面显示
-//   },
-//   onHide: function () {
-//     // 页面隐藏
-//   },
-//   onUnload: function () {
-//     // 页面关闭
-//   }
-// })
-// mine.js
 
 // 自定义标签
 var iconPath = "../../images/icons/"
 var tabs = [
   {
-    "icon": iconPath + "receive.png",
-    "iconActive": iconPath + "receive_selected.png",
-    "title": "我收到的",
-    "extraStyle": "",
-  },
-  {
     "icon": iconPath + "post.png",
     "iconActive": iconPath + "post_selected.png",
     "title": "我发送的",
+    "extraStyle": "",
+  },
+  {
+    "icon": iconPath + "receive.png",
+    "iconActive": iconPath + "receive_selected.png",
+    "title": "我收到的",
     "extraStyle": "",
   },
   // {
@@ -83,9 +53,9 @@ Page({
   //加载数据
   loadData: function () {
     if (g_tab == 0) {
-      this.loadMyReceiveData(0)
-    } else {
       this.loadMySendData()
+    } else {
+      this.loadMyReceiveData(0)
     }
   },
 
@@ -165,9 +135,6 @@ Page({
     })
     // 页面初始化 options为页面跳转所带来的参数
 
-    if(typeof options['tab'] != 'undefined'){
-      g_tab = options['tab'];
-    }
     this.loadData()
   },
 

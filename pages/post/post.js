@@ -116,7 +116,7 @@ Page({
             showCancel: false,
             complete: function (res) { 
               wx.reLaunch({
-                url: '/pages/mine/mine?tab=1',
+                url: '/pages/mine/mine',
               })
             }
           })
