@@ -5,16 +5,13 @@
             <view class="weui-article__section">
                 <view class="weui-article__section">
                     <view class="weui-article__p">
-                        1. 你可以把你心动的话发给TA而不用担心被TA知道
+                        1. 在这里您可以把您心动的话发给TA而不用担心被TA知道您是谁
                     </view>
                     <view class="weui-article__p">
-                        2. 你可以把你心动的话发给TA而不用担心被TA知道
+                        2. 在您发表心动的话后，平台会帮您匿名通知到TA，每天只会通知一次
                     </view>
                     <view class="weui-article__p">
-                        3. 若你收到了别人的话，你可以通过查看详情来让对方知道你已经收到了
-                    </view>
-                    <view class="weui-article__p">
-                        4、若对方未注册，会短信通知对方，且仅会通知一次，先到先得，抓紧机会。
+                        3. 在TA收到您说的话前，您说的内容将在“附近”板块中匿名被大家看到
                     </view>
                 </view>
             </view>
