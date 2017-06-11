@@ -61,6 +61,13 @@ Page({
 
   //加载我收到的数据
   loadMyReceiveData : function(id){
+    var flippedwordsData = {
+      isLoadingReceive: true
+    }
+    this.setData({
+      flippedwordsData: flippedwordsData
+    })
+
     util.getRequestWithRefreshToken(myFlippedwords, "pages/mine/mine").then(
       res => {
         
@@ -69,8 +76,9 @@ Page({
         }
         wx.stopPullDownRefresh();
 
-        var flippedwordsData = {
-          receiveFlippedwords: util.dealData(res.data.flippedwords)
+        flippedwordsData = {
+          receiveFlippedwords: util.dealData(res.data.flippedwords),
+          isLoadingReceive: false
         }
         this.setData({
           flippedwordsData: flippedwordsData
@@ -81,6 +89,13 @@ Page({
   
   //加载我发出的数据
   loadMySendData : function(){
+    var flippedwordsData = {
+      isLoadingSend : true
+    }
+    this.setData({
+      flippedwordsData: flippedwordsData
+    })
+
     var that = this
     util.getRequestWithRefreshToken(myPubFlippedwords, "pages/mine/mine").then(
       res => {
@@ -90,8 +105,9 @@ Page({
         }
         wx.stopPullDownRefresh();
 
-        var flippedwordsData = {
-          sendFlippedwords: util.dealData(res.data.flippedwords)
+        flippedwordsData = {
+          sendFlippedwords: util.dealData(res.data.flippedwords),
+          isLoadingSend : false
         }
 
         for (var i = 0; i < flippedwordsData.sendFlippedwords.length; i++){
