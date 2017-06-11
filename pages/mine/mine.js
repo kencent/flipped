@@ -150,14 +150,14 @@ Page({
   },
 
   onLoad: function (options) {
-    var that = this
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      console.log(userInfo)
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+    // var that = this
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   console.log(userInfo)
+    //   that.setData({
+    //     userInfo: userInfo
+    //   })
+    // })
     // 页面初始化 options为页面跳转所带来的参数
 
     this.loadData()
