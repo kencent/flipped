@@ -154,6 +154,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取经纬度存储在本地
+    util.getLocation().then(res => {
+      var location = util.formatLocation(res.longitude, res.latitude)
+      wx.setStorage({
+        key: 'lng',
+        data: location.lng,
+      })
+      wx.setStorage({
+        key: 'lat',
+        data: location.lat,
+      })
+    })
   },
 
   /**
