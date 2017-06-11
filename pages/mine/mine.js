@@ -100,7 +100,7 @@ Page({
         wx.stopPullDownRefresh();
 
         var flippedwordsData = {
-          receiveFlippedwords: util.dealData(res.data.flippedwords.reverse())
+          receiveFlippedwords: util.dealData(res.data.flippedwords)
         }
         this.setData({
           flippedwordsData: flippedwordsData
@@ -121,7 +121,7 @@ Page({
         wx.stopPullDownRefresh();
 
         var flippedwordsData = {
-          sendFlippedwords: util.dealData(res.data.flippedwords.reverse())
+          sendFlippedwords: util.dealData(res.data.flippedwords)
         }
         this.setData({
           flippedwordsData: flippedwordsData

@@ -521,7 +521,7 @@ function dealData(flippedwords) {
     if (flippedword.distance > 0){
       distanceStr = parseFloat(flippedword.distance/1000.0)
       distanceStr = distanceStr.toFixed(2)
-      distanceStr = '距离:' + distanceStr + 'km';
+      distanceStr = '距离：'+distanceStr + 'km';
     }
     flippedword.distanceStr = distanceStr
   }
