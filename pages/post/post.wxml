@@ -4,7 +4,7 @@
 <view class="container">
   <view class="page-body">
     <view class="page-section">
-      <view class="page-section-title" style="margin-top:10rpx;">您发送的内容将以匿名的方式展示，平台不会透露您的任何信息，点击查看<view bindtap="gotoHelp" class="help">《使用帮助》</view></view>
+      <view class="page-section-title" style="margin-top:10rpx;">您发送的内容将以匿名的方式展示，平台不会透露您的任何信息，更多详情请点击查看<view bindtap="gotoHelp" class="help">《使用帮助》</view></view>
     </view>
 
     <view class="page-section">
