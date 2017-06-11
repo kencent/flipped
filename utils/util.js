@@ -334,12 +334,12 @@ function getRequestWithRefreshToken(url, page) {
   var token = getToken('GET',url,{})
   console.log("from mine page token [" + token + "]")
   var username = wx.getStorageSync('username')
-  if (token == undefined) {//此时用户应该并没有登录过
-    wx.redirectTo({
-      url: '../../pages/login/login',
-    })
-    return Promise.reject(new Error("user not login"))
-  }
+  // if (token == undefined) {//此时用户应该并没有登录过
+  //   wx.redirectTo({
+  //     url: '../../pages/login/login',
+  //   })
+  //   return Promise.reject(new Error("user not login"))
+  // }
   return getRequest(url, {
     'Content-Type': 'application/json',
     "x-uid": wx.getStorageSync('username'),
