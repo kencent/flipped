@@ -19,6 +19,10 @@ Page({
       })
     })
 
+    wx.showLoading({
+      title: '加载中',
+    })
+    
     this.refreshData()
   },
   onReady:function(){
@@ -56,6 +60,7 @@ Page({
   },
   //刷新数据
   refreshData:function(){
+
     var requestUrl = this.getRequestUrlWithLocation()
     util.getRequestWithRefreshToken(requestUrl, "pages/squre/squre").then(res => {
       if (res.statusCode == 200) {
@@ -66,7 +71,8 @@ Page({
     }).catch(res => {
       console.log(res);
     }).finally(res => {
-      wx.stopPullDownRefresh();
+      wx.stopPullDownRefresh()
+      wx.hideLoading()
     })
   }
 })
