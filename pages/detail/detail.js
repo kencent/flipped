@@ -16,6 +16,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    wx.showLoading({
+      title: '正在加载',
+    })
     this.audioCtx = wx.createAudioContext('myAudio')
 
     var id = options.id
@@ -36,7 +40,9 @@ Page({
       }
     ).catch(function (res) {
       console.log(res);
+    }).finally(res => {
       wx.stopPullDownRefresh();
+      wx.hideLoading();
     })
 
     
