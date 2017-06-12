@@ -2,13 +2,12 @@
 <import src="../common/foot.wxml" />
 
 <view class="container">
-  <template is="head" data="{{title: '感谢反馈'}}" />
 
   <view class="page-body">
     
     <view class="page-section">
 
-      <view class="page-section-title">想对我们说(
+      <view class="page-section-title" style="margin-top:10rpx">想对我们说(
         <view class="red_text">*</view> )</view>
       <view class="page-body-info">
         <view class="textarea-wrp">

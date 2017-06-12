@@ -75,5 +75,10 @@ Page({
   
   },
 
+  gotoFeedback : function(){
+    wx.navigateTo({
+      url: '/pages/feedback/feedback',
+    })
+  }
   
 })

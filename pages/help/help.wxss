@@ -1,1 +1,5 @@
 /* help.wxss */
+.help {
+  display:inline-flex;
+  color:#1a0dab;
+}
