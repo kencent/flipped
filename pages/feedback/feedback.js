@@ -91,8 +91,7 @@ Page({
       data.contents.push(audioContent)
     }
 
-    data.lat = parseFloat(this.data.location.lat)
-    data.lng = parseFloat(this.data.location.lng)
+    
     util.postRequestWithRereshToken(feedbackUrl, data).then(
       res => {
         console.log(res)
