@@ -11,7 +11,7 @@
         <view class="red_text">*</view> )</view>
       <view class="page-body-info">
         <view class="textarea-wrp">
-          <textarea bindinput="onTextInput" placeholder="请描述你遇到的问题" />
+          <textarea bindinput="onTextInput" auto-focus placeholder="请描述你遇到的问题" />
         </view>
       </view>
     </view>
