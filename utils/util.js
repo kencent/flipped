@@ -362,7 +362,7 @@ function getRequestWithRefreshToken(url, page) {
       refreshToken(N_num_bits).then(function (res) {
         console.log("refreshToken "+res);
         console.log(res)
-        if (successHttp(statusCode)) {//续期成功
+        if (successHttp(res)) {//续期成功
           //重新打开当前页面
           wx.reLaunch({
             url: page,
