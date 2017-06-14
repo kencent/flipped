@@ -7,9 +7,6 @@
                     <view wx:for="{{contents}}" wx:for-item="content" class="weui-article__p">
                       {{content.text}}
                     </view>
-                    <view class="weui-article__p" style="margin-top:100rpx">
-                      如果您有任何问题或者建议，可以<view bindtap="gotoFeedback" class="help">【点此反馈】</view>
-                    </view>
                 </view>
             </view>
         </view>
