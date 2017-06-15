@@ -1,15 +1,14 @@
 {
   "pages": [
-    "pages/mine_new/mine_new",
     "pages/square/square",
-    "pages/mine/mine",
+    "pages/mine/mine",   
     "pages/logs/logs",
     "pages/login/login",
     "pages/post/post",
     "pages/detail/detail",
     "pages/feedback/feedback",
-    "pages/help/help"
-    
+    "pages/help/help",
+    "pages/mine_new/mine_new"        
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -8,9 +8,10 @@
                     <image src="http://www.sucaijishi.com/uploadfile/2016/0203/20160203022635285.png" style="width: 50px; height: 50px; display: block"/>
                 </view>
                 <view class="weui-cell__bd">
-                    <view>联系人名称</view>
-                    <view style="font-size: 13px;color: #888888;">摘要信息</view>
+                    <view>用户13810224456</view>
+                    <view style="font-size: 13px;color: #888888;">这里还不知道写什么</view>
                 </view>
+                <button type="primary" >说句悄悄话</button>
             </view>
             <view class="weui-cell weui-cell_access">
                 <view class="weui-cell__bd">
@@ -21,7 +22,7 @@
             <view class="weui-cell weui-cell_access">
                 <view class="weui-cell__bd">
                     <view style="display: inline-block; vertical-align: middle">我收到的</view>
-                    <!--<view class="weui-badge" style="margin-left: 5px;">8</view>-->
+                    <view class="weui-badge" style="margin-left: 5px;">8</view>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 <!--<view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>-->
