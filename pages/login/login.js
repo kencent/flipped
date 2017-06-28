@@ -196,9 +196,12 @@ Page({
               // util.getToken()
               //登录成功跳转到主页
               wx.hideToast()
-              wx.switchTab({
-                url: '../square/square',
+              wx.navigateTo({
+                url: '/pages/mine/mine',
               })
+              // wx.switchTab({
+              //   url: '/pages/mine/mine',
+              // })
             }
           } else if (res.statusCode == 422) {//验证码输入错误
             wx.hideToast()
